@@ -26,7 +26,6 @@ client.on('message', async message=>{
     switch(args[0]){
 
         case "ping":
-        case "pg":
             const msg = await message.channel.send('🎮 pinging...');
             msg.edit(`🎮 pong!~  |  🏳️ latency: **${Math.floor(msg.createdTimestamp - message.createdTimestamp)}ms**`);
             break;
@@ -70,17 +69,6 @@ client.on('message', async message=>{
             var data = require('fs').readFileSync(`${path}/archives/help.txt`).toString()
             message.channel.send(data)
             break;
-
-        case "remind":
-        case "r":
-            switch(args[1])
-            {
-                case "create":
-                    break; 
-                case "view":
-                    break;
-            }
-        break;
 
         case "format":
             if (message.author.id == "170501385954131968")  {
