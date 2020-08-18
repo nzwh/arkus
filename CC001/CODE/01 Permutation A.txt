@@ -1,0 +1,14 @@
+```csharp
+static int permutationCal(int n) {
+	// Fill in your code here.
+  return 0;
+}
+
+static void Main(string[] args) {
+	Console.Write(" > Enter a number. ");
+  int n = int.Parse(Console.ReadLine());
+
+  int answer = permutationCal(n);
+  Console.WriteLine(" > The answer is {0}.", answer);
+}
+```

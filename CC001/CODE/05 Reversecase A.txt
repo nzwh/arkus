@@ -1,0 +1,14 @@
+```csharp
+static string reverse(string input) {
+    // Fill in your code here.
+    return "";
+}
+
+static void Main(string[] args) {
+    Console.Write(" > Enter the string. ");
+    string input = Console.ReadLine();
+    
+    string answer = reverse(input);
+    Console.WriteLine(" > {0}", answer);
+}
+```

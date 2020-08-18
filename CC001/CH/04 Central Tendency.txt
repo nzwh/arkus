@@ -1,0 +1,7 @@
+Title: Challenge 04: **Central Tendency**
+Description: In this challenge, given a set of numbers, create a C# program that defines two measures of central tendency of the said set of numbers. The output should return two numbers, containing the mean and the median in such order. Since the mode is quite difficult to calculate, it will not be included in this challenge.
+HexColor: #f0f0f0
+Constraints: You are not allowed to use Regex or LINQ. You have to do it manually.
+Example: **Number set:** ```80 56 12 98 24 49 32 77 61``` **Expected output:** ``` Mean: 54.33`````` Median: 56```
+Deadline: N/A
+Footer: Code Challenge: 

@@ -1,0 +1,8 @@
+Title: Challenge 02: **Find the Bomb**
+Description: In this challenge, you have to create a function in C# that finds the word "bomb" in a given string. If it contains the word, you have to return "Duck!". If not, you have to return "There is no bomb. Relax."
+HexColor: #f0f0f0
+Constraints: There are no constraints for this one, but remember to use the code below.
+Example: **Example A:** ```bomb("Is there a bomb?")  →  "Duck!"``` **Example B:** ```bomb("This goes boom!")  →	 "There is no bomb. Relax."```
+Deadline: N/A
+Footer: Code Challenge: Permutation
+

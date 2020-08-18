@@ -1,0 +1,9 @@
+Title: Challenge 01: **Permutation**
+Description: In this challenge, you are tasked to create a C# program in where given a number, you have to calculate the permutation of that specific number.
+HexColor: #f0f0f0
+Constraints: You are not allowed to use any predefined methods. You have to do it manually.
+Example: **Given a digit,** ```5``` **You have to generate this answer,** ```120```
+Deadline: N/A
+Footer: Code Challenge: Permutation
+
+

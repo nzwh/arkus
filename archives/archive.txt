@@ -1,0 +1,634 @@
+case "sayyy":
+            if (message.deletable) message.delete();
+            if (args[1].length < 1) 
+            {
+                return message.reply("nothing to say!")
+                .then (m => m.delete(5000));
+            }
+            
+            if (args[1] === "embed")    
+            {
+                const sayEmbed = new Discord.MessageEmbed()
+                    .setColor(yellowC) 
+                    .setTitle(message.content.slice(11))
+                    .setThumbnail(message.channel.displayAvatarURL)
+                    .setFooter(`Powered by Xenocosm`)
+                    .setTimestamp()
+
+                message.channel.send(sayEmbed);
+            }
+            else    message.channel.send(message.content.slice(4));
+
+            break;
+
+        // help
+        case 'help':
+            if (args[1] === 'admin')
+            {
+                //#region help info (admin)
+                var admCommands = "**>fm** - shows the formatted information given a parameter.\n";
+            
+                const admHelpEmbed = new Discord.MessageEmbed()
+                .setTitle("**Commands and Information**")
+                .setDescription(`**All commands for admins can be found here.**\n The server prefix is **(${prefix})**.`)
+                .addField("**Admin Commands**", admCommands)
+
+                .addField('\u200B', '\u200B')
+                .addField("Developer Note:", "Type **help** after a command to get more info about a command.")
+
+                .setColor(yellowC)
+                .setThumbnail(serverLogo)
+                .setFooter('The Xenocosm Tech University', serverLogo)
+                .setTimestamp()
+
+                message.channel.send(admHelpEmbed);
+                //#endregion
+            }
+            else
+            {
+                //#region help info
+                var genCommands = "**>ping** - gets the current ping of the bot.\n"
+                genCommands += "**>memberlist** - generates the Xenocosm memberlist.\n";
+                genCommands += "**>cc** - shows the Code of Conduct for Feedback.\n"
+            
+                const helpEmbed = new Discord.MessageEmbed()
+                .setTitle("**Commands and Information**")
+                .setDescription(`**All commands regarding the bot can be found here.**\n The server prefix is **(${prefix})**.`)
+                .addField("**General Commands**", genCommands)
+
+                .addField('\u200B', '\u200B')
+                .addField("Developer Note:", "Type **help** after a command to get more info about a command.")
+
+                .setColor(yellowC)
+                .setThumbnail(serverLogo)
+                .setFooter('The Xenocosm Tech University', serverLogo)
+                .setTimestamp()
+
+                message.channel.send(helpEmbed);
+                //#endregion
+            }
+            
+            break;
+        
+        //#region formatting
+        case 'fm':
+            if (args[1] === 'format')   
+            {
+                if (args[2] === 'rules')
+                {
+                    if (message.deletable) message.delete();
+                    
+                    // section A
+                    var rulesSecA1 = "[**1.**]  - All members are expected to be treated in a **respectful** manner, this includes a **respect** towards any opinions presented.\n";
+                    rulesSecA1 += "[**2.**]  - Refrain from any **spam** messaging at any time. Spam: A chain of messages, disrupting any sort of discussion or server activity.\n";
+                    rulesSecA1 += "[**3.**]  - Avoid **arguments/debates** from occurring in any of the main chats, in any circumstance.\n";
+                    rulesSecA1 += "[**4.**]  - Keep **topics** of conversation in their respected channels at all times.\n";
+                    rulesSecA1 += "[**5.**]  - **Vulgarity** and **provocative** language should be done in moderation to maintain a more stable chat environment.\n";
+                    rulesSecA1 += "[**6.**]  - **Fruitless tags** of any person but yourself will result in punishment.\n";
+                    rulesSecA1 += "[**7.**]  - Maintain appropriate **nicknames** and ones that are easily taggable.\n";
+                    rulesSecA1 += "[**8.**]  - In the circumstances that we have disclosed information to be held **exculsive to our community** alone, **leaking this information** will result in a punishment.\n";
+                    rulesSecA1 += spacer;
+                    
+                    // section B
+                    var rulesSecB1 = "[**1.**]  - Refrain from **sensitive** discussion and/or **offensive topics** in conversation in any of the main chats. eg: suicide, abuse, self-harm, etc.\n";
+                    rulesSecB1 += "[**2.**]  - Under no circumstances should you post any form of **NSFW** content in any of the main chats.\n";
+                    rulesSecB1 += "[**3.**]  - Members should avoid persistently asking for **any roles**.\n";
+                    rulesSecB1 += spacer;
+
+                    // section C
+                    var rulesSecC1 = "[**1.**]  - Under no situation should any **discriminatory** messages including ones that are deliberately **sexist, racist**, and or any others that are of a degrading manner, should be sent at any time.\n";
+                    rulesSecC1 += "[**2.**]  - Members are to **never post the work of others and claim it as their own**. This also includes posting other’s works, for example a “friend” without mention that the work isn’t one that is your own.\n";
+
+
+                    // section A
+                    var rulesSecA2 = "[**1.**]  - Staff members are expected to bare their own weight and contribute to the server when needed.\n";
+                    rulesSecA2 += "[**2.**]  - Staff members should maintain steady activity for a large portion of their service. In the event that you need time off, advise an administrator. \n";
+                    rulesSecA2 += spacer;
+
+                    // section B
+                    var rulesSecB2 = "[**1.**]  - Staff members are to never abuse their powers in any way to any member.\n";
+                    rulesSecB2 += "[**2.**]  - Staff should serve as a role model for members to follow in keeping a cordial environment for the server.\n";
+
+
+                    // section A
+                    var rulesSecA3 = "[**1.**]  - Maintain a mature disposition.\n";
+                    rulesSecA3 += "[**2.**]  - Keep consistency and log server changes when they are put in place.\n";
+                    rulesSecA3 += "[**3.**]  - Enforce the rules/policies in place when needed be to stabilize a safe and calm environment for all parties.\n";
+
+                    // punishments
+                    var rulesPunishments = "** - Three infractions will guarantee a kick with a temporary ban of 1 week.**\n";
+                    rulesPunishments += "**- Three kicks will guarantee a permanent ban unless there is a reason to not do so.**\n"
+
+
+
+                    // embed: header
+                    const rulesEmbedHeader = new Discord.MessageEmbed()
+                    .setTitle("The Xenocosm Code")
+                    .addField("> A set of rules to follow to keep peace in the Xenocosm Tech University.", "> Please follow them accordingly.")
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+                    
+                    // embed: section I
+                    const rulesEmbedSectionI = new Discord.MessageEmbed()
+                    .setTitle("**Section I: The Community Code**")
+                    .addField('> **Section I:A** ', rulesSecA1)
+                    .addField('> **Section I:B** ', rulesSecB1)
+                    .addField('> **Section I:C** ', rulesSecC1)
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+                    
+                    // embed: section II
+                    const rulesEmbedSectionII = new Discord.MessageEmbed()
+                    .setTitle("**Section II: The Staff Code**")
+                    .addField('> **Section II:A** ', rulesSecA2)
+                    .addField('> **Section II:B** ', rulesSecB2)
+                    
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+                    
+                    // embed: section III
+                    const rulesEmbedSectionIII = new Discord.MessageEmbed()
+                    .setTitle("**Section III: The Administrator Code**")
+                    .addField('> **Section III** ', rulesSecA3)
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University',)
+
+                    // embed: punishments
+                    const rulesEmbedPunishments = new Discord.MessageEmbed()
+                    .setTitle("**Punishments and Repurcussions**")
+                    .addField("> **The punishment system will be integrated with the use of Gearbot's Infraction system.**", rulesPunishments)
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+
+                    const rulesHeader = new Discord.MessageEmbed()
+                    .setImage('https://media.discordapp.net/attachments/693146879701155931/693147021040680960/rules.png?width=1442&height=361')
+                    .setColor(crimsonC)
+
+                    message.channel.send(rulesHeader);
+                    message.channel.send(rulesEmbedHeader);
+                    message.channel.send(rulesEmbedSectionI);
+                    message.channel.send(rulesEmbedSectionII);
+                    message.channel.send(rulesEmbedSectionIII);
+                    message.channel.send(rulesEmbedPunishments);
+                }
+                else if (args[2] === 'welcome')
+                {
+                    if (message.deletable) message.delete();
+                    
+                    const welcomeHeader = new Discord.MessageEmbed()
+                    .setColor(crimsonC)
+                    .setImage('https://cdn.discordapp.com/attachments/336868172777127937/693830199820943420/xtu_banner_base.png')
+                    
+                    message.channel.send(welcomeHeader);
+                    //#region welcome intro
+                    var wTitle = "Welcome to the Xenocosm Tech University.";
+
+                    var wDesc = "**XTU is a creator university run by Xenocosm, a tech-based collective, that aims to develop and cultivate the tech creators of the future.**\n\n";
+                    wDesc += "Here, students eager to learn will be guided through the curriculum we have to offer.";
+                    wDesc += "While we are mainly tech based, we will also provide feedback on certain styles such as Core and Art.\n\n"; 
+                    wDesc += "Since founded by Arcanox in 2017, the university's main objective has been and always will be the same: "; 
+                    wDesc += "to bring out the best in our students, whether they are pursuing design, effect, or any other subgenre of tech. ";
+                    wDesc += "As one of the largest Geometry Dash schools out there, we intend to carry out our objectives and do our part for the community until the very end.\n\n";
+                    wDesc += "So join us, as XTU hopes to guide you on your journey to becoming one of the greatest tech creators of the future.";
+                    wDesc += spacer;
+
+                    const welcomeIntro = new Discord.MessageEmbed()
+                    .setTitle(wTitle)
+                    .setDescription(wDesc)
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+
+                    message.channel.send(welcomeIntro);
+                    //#endregion
+
+                    //#region welcome info
+                    var wiDesc = "To get started, we require that you read up on the <#693146879701155931> channel; ";
+                    wiDesc += "this ensures that you acknowledge the rules prior to interacting within the various channels. ";
+                    wiDesc += "Thus, Ignorance of these rules doesn't serve as a valid excuse.\n\n"; 
+                    wiDesc += "Next, head on to <#322559131690991619> and <#688360825026510961> for more information and updates in regards to the University. ";
+                    wiDesc += "Afterwards, check out <#322555430758907914>, and begin interacting with others.\n\n";
+                    wiDesc += "You may also want to head on to the <#329499224465080320> channel. Here, users share and critique each others work relevant to GD. "; 
+                    wiDesc += "But prior to doing so, you are required to check the <#686517516737970196>, containing policies and regulations regarding the feedback channel.\n\n"; 
+                    wiDesc += "You are indeed permitted to tag a staff member under the circumstances that you have further inquiries regarding our university. ";
+                    wiDesc += "Note that any complaints should be directed to the <#322555430758907914> channel; we will make sure to answer to them ASAP.\n\n";
+
+                    const welcomeInfo = new Discord.MessageEmbed()
+                    .setTitle("XTU welcomes you with open arms to the learning environment and experience that we have to offer, with hopes that you enjoy your stay.")
+                    .setDescription(wiDesc)
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+
+                    message.channel.send(welcomeInfo);
+                    //#endregion
+
+                    //#region welcome systems
+                    var wsDesc = "The **Examination System** is a unique system wherein students are challenged to build a creation outside of their comfort zone. ";
+                    wsDesc += "The results of the exams will determine which of the students will be permitted to join the Xenocosm Collective, through established criteria.\n\n";
+                    wsDesc += "The **Events System** on the other hand, is one that will comprise of various events such as challenges, tournaments, etc. ";
+                    wsDesc += "We will be holding a few of this events on a monthly basis.\n\n";
+                    wsDesc += "Lastly, in the **Syllabus**, experienced instructors will construct lessons in a way such that each are accessible to any of our students across every echelon. This ensures the consideration of each student, regardless of when they join XTU, and level of ability upon joining.\n\n";
+
+                    const welcomeSystems = new Discord.MessageEmbed()
+                    .setTitle("In XTU, we have set up various systems with the intent to serve as an aid in your studies, these systems being examinations, events, and lessons.")
+                    .setDescription(wsDesc)
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+
+                    message.channel.send(welcomeSystems);
+                    //#endregion
+
+                    //#region welcome links
+                    var wlDesc = "Hence, Xenocosm has dedicated their YouTube channel and their Twitter account in showcasing the student's work to the community. ";
+                    wlDesc += "Xenocosm aims to post works frequently to said accounts.\n\n";
+                    wlDesc += "**If you want to support the respective channels, you can go and follow/subscribe to Xenocosm's respective accounts.**";
+
+                    const welcomeLinks = new Discord.MessageEmbed()
+                    .setTitle("Xenocosm, the creators of XTU, must help to improve the student's growth as a creator,")
+                    .setDescription(wlDesc)
+                    .addField("<:twitter:693846359681531904> `Xenocosm Twitter Link:`", 'https://twitter.com/xenocosmco')
+                    .addField("<:youtube:693846664183808081> `Xenocosm YouTube Link:`", 'https://www.youtube.com/c/Xenocosm')
+                    .addField("<:discord:693846172690939975> `Permanent Invite Link:`", 'https://discord.gg/AUN6esw')
+
+                    .setColor(crimsonC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('The Xenocosm Tech University')
+
+                    message.channel.send(welcomeLinks);
+                    //#endregion
+                }
+            }
+            else if (args[1] === 'help')
+            {
+                message.channel.send('coming soon');
+            }
+            if (args[1] === 'partners')
+            {
+                if (args[2] === 'ga')
+                {
+                    const partnerGA = new Discord.MessageEmbed()
+                    .setTitle("**Gameplay Academy**")
+                    .setDescription("Accepting students of all skill levels, \n the Geometry Dash Gameplay Academy provides basic to advanced lessons for all aspects of creating a great layout and ensures that each student gets the attention needed for them to excel. If you want to improve your gameplay skills, join this school as they will do the same for us.")
+                       .addField("Invite Link", "https://discord.gg/eeNkdZ4")
+
+                    .setColor(tealC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('Xenocosm Tech University Partnerships')
+
+                    message.channel.send(partnerGA);
+                }
+                else if (args[2] === 'cs')
+                {
+                    const partnerCS = new Discord.MessageEmbed()
+                    .setTitle("**Geometry Dash Creator School**")
+                    .setDescription("We are a team of teachers and skilled creators who help others improve! We have many detailed lessons regarding a broad plethora of building styles! There are many things to do here at CreatorSchool including level requests (ran by staff), creating contests and more! Join now and improve your skills!")
+                    .addField("Invite Link", "https://discord.gg/D9TCv73")
+
+                    .setColor(tealC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('Xenocosm Tech University Partnerships')
+
+                    message.channel.send(partnerCS);
+                }
+                else if (args[2] === 'ca')
+                {
+                    const partnerCA = new Discord.MessageEmbed()
+                    .setTitle("**Core Public Server**")
+                    .setDescription("A server run by Team Core. With a team of skilled creators helping newer creators improve by providing a constant stream of feedback, a plethora of works by team members to provide information and occasional building events, The Core Public Server is both a great place to chat and learn.")
+                    .addField("Invite Link", "https://discord.gg/7T6Y7c4")
+
+                    .setColor(tealC)
+                    .setThumbnail(serverLogo)
+                    .setFooter('Xenocosm Tech University Partnerships')
+
+                    message.channel.send(partnerCA);
+                }
+                else if (args[2] === 'header')
+                {
+                    if (message.deletable) message.delete();
+
+                    const partnerHeader = new Discord.MessageEmbed()
+                    .setImage('https://media.discordapp.net/attachments/336868172777127937/693830191239397428/partnerships.png?width=1442&height=361')
+                    .setColor(tealC)
+
+                    message.channel.send(partnerHeader);
+                }
+            }
+        break;
+        //#endregion
+
+        case 'clheader':
+            if (message.deletable) message.delete();
+            const changelogHeader = new Discord.MessageEmbed()
+            .setImage('https://cdn.discordapp.com/attachments/336868172777127937/693829935143583775/changelog.png')
+            .setColor('0x03ffd1')
+            message.channel.send(changelogHeader);
+            break;
+        
+        case 'memberlist':
+            //#region memberlist
+            const memberList = new Discord.MessageEmbed()
+            .setTitle("Current Xenocosm Member List")
+            .setDescription("All the current members joined in the Xenocosm Collective.")
+
+            .addFields(
+                {   name: "> **Leaders**", value: "```yaml\nPeteksi, rcksn, Xyanide, zalspr```", inline: false },
+                {   name: "> **Former Leaders**", value: "```fix\nAmateurre, Arcatex, Brittank88, Titanium7```", inline: false },
+                //{   name: '\u200B', value: '\u200B' },
+            )
+            .addFields(
+                {   name: "> **Tech**", value: "```Aevermess \nAmateurre \nAmora \nCreeper4 \nEnely \nFirs07 \nFiry \nIncakola \nInflame```", inline: true },
+                {   name: '\u200B', value: "```Kaz \nLogiking \nMegantwoo \nNikoator \nPeteksi \nrcksn \nrebix \nReunomi \nRedCrow```", inline: true },
+                {   name: '\u200B', value: "```Sequex \nTitanium7 \nTsukifuto \nUnerve \nVulna \nWiktord1 \nXender \nXyanide \nzalspr```", inline: true },
+
+                {   name: "> **Art**", value: "```Amora \nFirs07 \nLogiking \nNbNico \nPeteksi \nReunomi \nSplash \nWiktord1 \nXender \nXyanide \nzalspr```", inline: true },
+                {   name: "> **Core**", value: "```Aevermess \nBennxt \nDurianhead \nSkele \nTsukifuto```", inline: true},
+                {   name: "> **GP**", value: "```Brittank88 \nKaz \nMaskz \nMegantwoo \nrebix \nSequex \nXaren```", inline: true}
+            )
+
+            .setColor(yellowC)
+            .setThumbnail(serverLogo)
+            .setFooter('The Xenocosm Tech University', serverLogo)
+            .setTimestamp()
+            
+            message.channel.send(memberList);
+            //#endregion
+            break;
+
+        case 'ant':
+            message.channel.send('<@!158405382383861760>');
+        break;
+
+        case 'cc':
+                
+            if (args[1] === 'intro')
+            {
+                var cdcIntro = "The **Code of Conduct** is a set of rules and guidelines that serve as an extension from <#693146879701155931> that apply solely towards the <#329499224465080320> channel. ";
+                cdcIntro += "These were created with the idea of creating a positive, constructive, and productive environment to help creators grow. ";
+                cdcIntro += "Any form of misconduct that violates these rules will result in the removal of your ability to view and post in #feedback and possibly a full ban from the server.\n\n";
+
+                cdcIntro += "This version of the Code of Conduct is based on the osu! Mapping and Modding Code of Conduct and has been adjusted for Geometry Dash by <@!313689359352070144>.\n";
+
+                const codeOfConductIntro = new Discord.MessageEmbed()
+                .setTitle("The Code of Conduct: For Feedback")
+                .setDescription(cdcIntro)
+                
+                .setColor(crimsonC)
+                .setThumbnail(serverLogo)
+                .setFooter('The Xenocosm Tech University', serverLogo)
+
+                message.channel.send(codeOfConductIntro);
+            }
+            else if (args[1] === 'section' || args[1] === 'sec' || args[1] === "s")
+            {
+                if (args[2] === '1')
+                {
+                    var cdcBC = "The goal of feedback is to help a creator improve their work. If you are not interested in helping someone then do not join the conversation to avoid hurting them.\n\n";
+                    cdcBC += "When posting feedback, also consider who it's directed towards, what you aim to achieve, and what kind of response you expect to receive. This way, your best intentions are conveyed and your message is easy to understand.\n";
+                    cdcBC += spacer;
+                    
+                    var cdcBCInstances = "[**1.**] - When you see a new creator, don't hesitate in giving feedback. They are still learning and any kind of help would benefit them the most.\n\n";
+                    cdcBCInstances += "[**2.**] - If you're a new creator, don't hesitate to let everyone know. This helps the more experienced creators point you in the right direction. Remember that tech is not an easy style and everyone here has been new to it at some point.\n\n";
+                    cdcBCInstances += "[**3.**] - Treat others the way you want to be treated. People are more receptive to feedback that is kind and helpful rather than one that's hostile and only hurts them. Try to understand their perspective, don't attack it. Nobody wants to feel worthless and incompetent.\n\n";
+                    cdcBCInstances += "[**4.**] - Any form of personal attacks, hateful comments, misplaced joking, derailing of the conversation, or starting of drama are not allowed under any circumstances.";
+
+                    const codeOfConductBC = new Discord.MessageEmbed()
+                    .setTitle("Section I: **Behavior and Conduct**")
+                    .setDescription(cdcBC)
+                    .addField('```Instances```',cdcBCInstances)
+                    
+                    .setColor(crimsonC)
+                    .setFooter('The Xenocosm Tech University', serverLogo)
+                    .setTimestamp()
+
+                    message.channel.send(codeOfConductBC);
+                }
+                else if (args[2] === '2')
+                {
+                    var cdcGF = "So you've entered the channel and see a work you aren't really happy with. Now's a good time to put your words into use and help the creator improve it. But how do you get the creator to understand your perspective, try your suggestions, and give you feedback? Nobody wants to waste their time with ideas that don't work for them after all.\n\n";
+                    cdcGF += "When posting feedback, also consider who it's directed towards, what you aim to achieve, and what kind of response you expect to receive. This way, your best intentions are conveyed and your message is easy to understand.\n";
+                    cdcGF += spacer;
+                    
+                    var cdcGFInstances = "[**1.A**] - Make sure your intentions are good, focused, and unbiased. Nobody wants to recieve feedback that's rude or poorly explained.\n\n";
+                    cdcGFInstances += "[**1.B**] - When making a suggestion, learn to differentiate what is objectively and subjectively bad or wrong and what you simply dislike on a personal level.\n\n";
+                    cdcGFInstances += spacer;
+
+                    var cdcGFIssues = "[**2.A**] - **Objective / Intersubjective Issues**: These are issues based on what a majority believe to be bad. Should be fixed in most cases unless there is an opposing counterargument of equal value or if the creator can exhaustively explain why they believe it to be acceptable.\n\n";
+                    cdcGFIssues += "[**2.B**] - **Subjective Issues**: These are issues you believe or think on a personal level. Preferences based on style or decoration choices always fall under this category. These can fall under **Objective / Intersubjective Issues** if enough people agree with it.\n";
+                    cdcGFIssues += spacer;
+
+                    var cdcGFExtra = "[**3.A**] - Do not force your style or ideas onto other people. Unless the concept itself is fundamentally flawed, feedback should always aim to improve the creation in it's current design. If a creation has too many issues to be addressed individually then try to give a general perspective on why you think this is the case and how the creator can get back on track.\n\n";
+                    cdcGFExtra += "[**3.B**] - Offer potential solutions and suggestions. After thoroughly analyzing a creation try to give the creator a solution or way to fix the issues and consider how that will affect the creation as a whole. The more you can offer the better.\n";
+                    cdcGFExtra += spacer;
+
+                    var cdcGFFeedback = "[**4.A**] - A statement of the issue. Including pictures or highlighting where the problem is helps the creator find the issue faster.\n\n";
+                    cdcGFFeedback += "[**4.B**] - A brief explanation behind the issue. This is very important because this is where you convince the creator to even consider your suggestions. A creator is more likely to change when you give a clear, understandable, and valid reason to.\n\n";
+                    cdcGFFeedback += "[**4.C**] - Another alternative solution with an explanation on how it affects the creation. Just like before, the explanation is very important. Even if you convince the creator to improve, what makes your words better than everyone else's.\n\n";
+                    cdcGFFeedback += "[**4.D**] -  The wording and language. Is the creator fluent in English? If not, stick to basic and easy-to-understand words. If you can speak the creator's language we encourage you to do so. Pictures describing what you mean can also be easily understood universally.\n";
+
+                    const codeOfConductGF = new Discord.MessageEmbed()
+                    .setTitle("Section II: **Giving Feedback**")
+                    .setDescription(cdcGF)
+                    .addField("```Instances```",cdcGFInstances)
+                    
+                    .addFields(
+                        {   name: "> Any kind of suggestion is allowed as long as they're put forward accordingly.", value: cdcGFIssues },
+                        {   name: "`Furthermore,`", value: cdcGFExtra },
+                        {   name: "> Feedback should ideally aim to include these 4 parts, though based on the creator's experience and/or your personal relationship with the creator, we suggest you act lenient when appropriate.", value: cdcGFFeedback }
+                        )
+                    
+                    .setColor(crimsonC)
+                    .setFooter('The Xenocosm Tech University', serverLogo)
+                    .setTimestamp()
+
+                    message.channel.send(codeOfConductGF);
+                }
+                else if (args[2] === '3')
+                {
+                    var cdcRF = "Great! Someone gave you some suggestions to work out but it shouldn't stop there. While optional, we strongly suggest you make a proper response for two reasons: \n\n";
+                    cdcRF += "Firstly, it's so future critics can give you proper feedback based on your concepts or style. Secondly, just as we give you feedback to improve your work we also need feedback to be more detailed and improve our understanding of creating. You never know when you can rely on someone to help.\n";
+                    cdcRF += spacer;
+                    
+                    var cdcRFInstances = "[**1.**] - Treat all suggestions as equal and valid until you have properly analyzed and tested them. Even something as simple as a minor nitpick or a different perspective can change the overall look of your creation.\n\n";
+                    cdcRFInstances += "[**2.**] - Explain yourself as much as possible. Discuss what changes you made and if you didn't do a suggestion, explain why and what you did instead.\n\n";
+                    cdcRFInstances += "[**3.**] - Be calm and professional when declining someone's feedback. Say what needs to be said and leave it at that. Even if a suggestion was impolite or unhelpful, responding negatively does not help the situation at all.\n\n";
+
+                    const codeOfConductRF = new Discord.MessageEmbed()
+                    .setTitle("Section II: **Receiving Feedback**")
+                    .setDescription(cdcRF)
+
+                    .addField("```Instances```",cdcRFInstances)
+                    
+                    .setColor(crimsonC)
+                    .setFooter('The Xenocosm Tech University', serverLogo)
+                    .setTimestamp()
+
+                    message.channel.send(codeOfConductRF);
+                }
+                else if (args[2] === '4')
+                {
+                    var cdcFD = " Sometimes, a response or two isn't enough to come to a final conclusion. Maybe the creator doesn't agree with the suggestions or the critic isn't satisfied with his response.\n\n";
+                    cdcFD += " Alternstively, both sides may think that, even though one option is better, it isn't the best option and could still be improved. Continued feedback is the best way to improve, so get people involved and talking and explore as many different perspectives as you can.\n";
+                    cdcFD += spacer;
+                    
+                    var cdcFDInstances = "[**1.**] - If you're unsure about something, don't hesitate to ask for clarification. The critic should be more than willing to explain things better.\n\n";
+                    cdcFDInstances += "[**2.**] - If you find a better solution than what you previously suggested, don't be afraid to admit that you're wrong. We all make mistakes and hiding the truth behind your own pride only hurts the creator.\n\n";
+                    cdcFDInstances += "[**3.**] - There are no \"wrong\" opinions. It is up to the creator and the critic to come to a civil agreement. Try to understand other perspectives than dismiss them, they may end up being useful in the future.\n\n";
+                    cdcFDInstances += "[**4.**] - If you can't explain things logically, you can't do so violently either. No matter who's right or wrong, being negative does not solve the issue. If an argument occurs, report it to a mod and don't join in. You'll only add more to the fire.\n\n";
+
+
+                    const codeOfConductFD = new Discord.MessageEmbed()
+                    .setTitle("Section IV: **Further Discussion**")
+                    .setDescription(cdcFD)
+
+                    .addField("```Instances```",cdcFDInstances)
+                    
+                    .setColor(crimsonC)
+                    .setFooter('The Xenocosm Tech University', serverLogo)
+                    .setTimestamp()
+
+                    message.channel.send(codeOfConductFD);
+                }
+                else if (args[2] === '5')
+                {
+                    
+                    var cdcGInstances = "[**1.**] - No Shitposting. This includes work purposefully made bad to get a reaction out anyone. The goal for this channel is to help other's improve, not share memes.\n\n";
+                    cdcGInstances += "[**2.**] - We are open to any style. Despite being a school focused on tech, we're also open to any other style and they should be treated as such.\n\n";
+                    cdcGInstances += "[**3.**] - Do not skip over people. In the middle of someone giving or looking for feedback, it's extremely rude to post your own work to get an opinion before someone else. Wait for the previous post to recieve feedback or offer your own opinions before you can post yours.\n\n";
+                    cdcGInstances += "[**4.**] - Do not repost too often. While we understand you may be looking for more opinions, you don't really spend the time to actually work with those suggestions and as such it can be treated as spam if you post the same image with very minimal progress more than twice.\n\n";
+
+
+                    const codeOfConductG = new Discord.MessageEmbed()
+                    .setTitle("Section V: **Guidelines**")
+                    .setDescription("Now that you understand proper behavior here are some guidelines you need to follow when posting any creation.\n<:spacer:693481687065034812>")
+
+                    .addField("```Instances```",cdcGInstances)
+                    
+                    .setColor(crimsonC)
+                    .setFooter('The Xenocosm Tech University', serverLogo)
+                    .setTimestamp()
+
+                    message.channel.send(codeOfConductG);
+                
+                }
+            }
+            else
+            {
+                var ccH = "The **Code of Conduct** is a set of rules and guidelines that serve as an extension from <#693146879701155931> that apply solely towards the <#329499224465080320> channel. ";
+                ccH += "These were created with the idea of creating a positive, constructive, and productive environment to help creators grow. ";
+                ccH += "Any form of misconduct that violates these rules will result in the removal of your ability to view and post in #feedback and possibly a full ban from the server.\n\n";
+
+                ccH += "This version of the Code of Conduct is based on the osu! Mapping and Modding Code of Conduct and has been adjusted for Geometry Dash by Sequex.\n";
+
+                const codeOfConductHelp = new Discord.MessageEmbed()
+                .setTitle("The Code of Conduct: For Feedback")
+                .setDescription(ccH)
+
+                .addField("> **To view the Code of Conduct, please type in `>cc section` and then the section you would like to view.**",
+                "```fix\n1: Section I:   Behavior and Conduct \n2: Section II:  Giving Feedback \n3: Section III: Receiving Feedback \n4: Section IV:  Further Discussion \n5: Section V:   Guidelines```")
+
+                .setColor(yellowC)
+                .setThumbnail(serverLogo)
+                .setFooter('The Xenocosm Tech University', serverLogo)
+                .setTimestamp()
+
+                message.channel.send(codeOfConductHelp);
+            }
+            
+        break;
+        case 'khang':
+            message.channel.send(`khang academy <@194678422302097418> <@194678422302097418> wuxwuxquzaz`)
+            break;
+
+        case 'freedomwall':
+            var g = true;
+            var fwText = message.content.slice(12); 
+            for (i = 0; i < fwText.length+1; i++)
+            {
+                if (fwText[i] === '@') 
+                {
+                    message.channel.send('wtf');
+                    g = false;
+                }
+            }
+            if (g === true)
+            {
+                freedomwall += fwText + `(${message.author.username})  | `;
+                message.channel.send(freedomwall);
+            }
+ 
+            if (args[1] === 'fwclear') freedomwall = " ";
+            break;
+        
+            case 'cg':
+                const changelog = new Discord.MessageEmbed()
+                .setTitle("XTU: **University Update** 4.1 Changelog")
+                .setDescription("After a long hiatus, the staff figured it was time to release the long overdue update. We present: The University Update.")
+
+                .addFields(
+
+                    {   name: '\u200B', value: '`]═════─══─════─  [  ⌬  ]  ─════─══─═════[`\n<:spacer:693481687065034812>' },
+
+                    {   name: "> **New Features**", value: "• added <@!349977940198555660> for moderation, logging and warning. \n• added <@!204255221017214977> for moderation, and role reaction. \n• added <@!234395307759108106> as a music alternative for Rythm." },
+
+                    {   name: '\u200B', value: '`]═════─══─════─  [  ⌬  ]  ─════─══─═════[`\n<:spacer:693481687065034812>' },
+
+                    {   name: "> New System: **The Code of Conduct**", value: "• the Code of Conduct is a set of rules and guidelines in giving and recieving feedback, and is strictly monitored by the staff. \n``(for more information, type >cc)``" },
+                    {   name: "> New System: **Enrolling System & @Student role**", value: "• In order to access the Examinations and Syllabus categories, you must have the <@&688363941901893640> role. This role will also be tagged when exams and events are announced. \n`(to access the student role, go to the enroll channel)`" },
+                    {   name: "> New System: **Branches: @Architecture & @Engineering**", value: "• As a replacement for the rank system, we have developed the **branches system**. More info about the branches system will be revealed in a later date." },
+                    {   name: "> New Bot: **Xen!**", value: "• Xen was created to help announce info about the server, and to provide help to students with difficulties. \n`(you can interact with the bot by typing >help)`" },
+
+                    {   name: '\u200B', value: '`]═════─══─════─  [  ⌬  ]  ─════─══─═════[`\n<:spacer:693481687065034812>' },
+
+                    {   name: "> Promotions and Demotions", value: "• <@194678422302097418> has been promoted to `Leader.` \n• <@!313689359352070144>  has been promoted to `Administrator.` \n• <@!178963770696138752> has been promoted to `Moderator.` \n• <@492046441762521089> has been promoted to `Moderator.`" },
+
+                    {   name: '\u200B', value: '`]═════─══─════─  [  ⌬  ]  ─════─══─═════[`\n<:spacer:693481687065034812>' },
+
+                    {   name: "> Channel Updates", value: "• **new channel**: **<#688360825026510961>**; the changelog channel was created to log all the new additions and changes for the university and occassionally, updates about the collective. \n\n• updated <#693132872235614218>, <#693146879701155931>, and <#693148749039534141> with updated information, discord embeds and channel banners. \n\n• archived <#481095865508036618> , <#508269130957324288> and <#329499597502152704>. \n• added a new voice channel, **#transmission**, to allow more voice channels to be used. \n• renamed lesson channels with their respective subjects. \n• re-added <#336386052543479811>, in place of <#508269130957324288>. \n• locked examinations and syllabus categories for non-students." },
+
+                    {   name: '\u200B', value: '`]═════─══─════─  [  ⌬  ]  ─════─══─═════[`\n<:spacer:693481687065034812>' },
+
+                    {   name: "> Role Updates", value: "• deleted the rank system, including the ranks, probably for good. \n• deleted useless roles such as @certified weeb, etc. \n• added <@&688360621305233431>, <@&688363941901893640>, and <@&687554827366039571>. \n• added <@&692755325648109609> and <@&692755356258140251> roles for the staff. \n• added <@&692755444690845796> for nitro boosters of the server. \n• added <@&693892849481285745> and <@&693892921979568158>, as branches." },
+
+                    {   name: '\u200B', value: '`]═════─══─════─  [  ⌬  ]  ─════─══─═════[`' },
+
+                    {   name: '\u200B', value: "The Xenocosm Staff hopes you have liked the new update, and will gladly accept any more suggestions about the update. \n`Put your complaints in here:` **<#694573590737190922>**" },
+                )
+                .setColor(tealC)
+                .setThumbnail(serverLogo)
+                .setFooter("The Xenocosm Tech University")
+
+                message.channel.send(changelog)
+                break;
+
+            case 'exams':
+                switch(args[1])
+                {
+                    default:
+                }
+                // shows current exams by default
+                break;
+
+
+                const serverLogo = 'https://media.discordapp.net/attachments/336868172777127937/693460382953766952/finalmaybe3.png?width=684&height=684';
+
+                const yellowC = '0xffce5c';
+                const crimsonC = '0xbc3838';
+                const tealC = '0x03ffd1';
+
+                const spacer = "<:spacer:693481687065034812>";
+                var freedomwall = " ";
