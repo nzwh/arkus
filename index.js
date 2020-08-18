@@ -21,7 +21,7 @@ client.on('message', async message=>{
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;
 
-    const path = "C:\\Users/Nav/Desktop/   /bots/Arkus";
+    const path = ".";
 
     switch(args[0]){
 
