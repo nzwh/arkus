@@ -1,7 +1,0 @@
-Title: Challenge 03: **Consonant-izer**
-Description: In this challenge, you are tasked to create a C# function to remove the vowels of a given string. The end result should return a string containing only the consonants of the given word.
-HexColor: #f0f0f0
-Constraints: You are not allowed to do Regex or any methods. You have to do it manually.
-Example: **Input:** ```I have done nothing productive for the past quarantine.``` **Output:** ```hv dn nthng prdctv fr th pst qrntn.```
-Deadline: N/A
-Footer: Code Challenge: Consonant-izer

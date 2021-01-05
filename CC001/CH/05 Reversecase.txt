@@ -1,8 +1,0 @@
-Title: Challenge 05: **Reversecase**
-Description: In this challenge, you are tasked to create a C# program that reverses the case of a given string. This means that a capital latter becomes a lowercase letter, and vice versa.
-HexColor: #f0f0f0
-Constraints: There are no restrictions for this challenge.
-Example: **Input:** ```Welcome to The SD-B Server.``` **Output:** ```wELCOME TO tHE sd-b sERVER.```
-Deadline: N/A
-Footer: Code Challenge: Reversecase
-

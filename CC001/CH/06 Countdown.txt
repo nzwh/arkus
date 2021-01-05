@@ -1,8 +1,0 @@
-Title: Challenge 06: **Countdown**
-Description: In this challenge, you are tasked to create a C# program wherein given a specific birthday input (i.e. 02/17/2003), you have to calculate how many days left until that birthday occurs. Note that the current day, no matter what time it is, should not be included.
-HexColor: #f0f0f0
-Constraints: There are no constraints to this round, but remember the aforementioned rule about the current day.
-Example: 
-Deadline: N/A
-Footer: Code Challenge: Countdown
-
