@@ -131,5 +131,5 @@
     }
 
     module.exports.help = {
-        name: "m"
+        name: "math"
     }
