@@ -1,18 +1,22 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const { Client, Collection, Intents } = require('discord.js');
+const { token, prefix } = require('./config.json');
 
-const token = 'NjkzMTAzMjU1MzQ5MjMxNjc3.Xn8e_A.TAWu2_-KzJoI5HInqZKOfdQ_H50';
-
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 console.log('');
-const prefix = "=";
 
 client.on('ready', ()=>{
-    console.log('  ❱❱ Online.');
-    client.user.setActivity(`with the clouds.`)
+
+        console.log('  ❱❱ Online.');
+    
+    client.user.setActivity("with the clouds", {
+        type: "STREAMING",
+        url: "https://www.twitch.tv/monstercat"
+      });
 })
 
     const fs = require('fs');
-    client.commands = new Discord.Collection();
+    client.commands = new Collection();
+    client.aliases = new Collection()
 
     const command_f = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
     if(command_f.length <= 0) console.log("  ❱❱ No commands to load.")
@@ -22,6 +26,10 @@ client.on('ready', ()=>{
         for (const file of command_f){
             const command = require(`./commands/${file}`);
             client.commands.set(command.help.name, command);
+
+            command.help.aliases.forEach(alias => {
+                client.aliases.set(alias, command.help.name);
+            });
         }
     } catch(err) {
         console.log(err)
@@ -35,7 +43,7 @@ client.on('message', async message=>{
     if (!message.guild) return;
     if (!message.content.startsWith(prefix)) return;
     
-    let cmd = client.commands.get(args[0]);
+    let cmd = client.commands.get(args[0]) || client.commands.get(client.aliases.get(args[0]));
     if(cmd) cmd.run(client, message, args.slice(1));
     
 })
