@@ -2,20 +2,26 @@
     const Discord = require('discord.js');
     module.exports.run = async (client, message, args) => {
         
-        if (message.author.id == "170501385954131968")  {
+        // checks if the user is permitted to use the command
+        if (message.author.id == "170501385954131968" || message.author.id == "158405382383861760")  {
         if (message.deletable) message.delete()
-            var msg_ = message.content.slice(5)
-            if (args[1] == "/m") {
-                const sayEmbed = new Discord.MessageEmbed()
-                    .setTitle(msg_.slice(args[1].length+1))
-                    .setColor("#fafafa")
-                message.channel.send(sayEmbed)
-            }
-            else
-                message.channel.send(msg_)
+        var t = message.content;
+
+        // cuts off the command and leaves the message (with /m)
+        var msg_ = t.substring(t.indexOf('/')+2);
+        if (args[0] == "/m") {
+            const sayEmbed = new Discord.MessageEmbed()
+                .setDescription(`**${msg_}**`)
+                .setColor("#2F3136")
+            message.channel.send(sayEmbed)
+        }
+
+        // cuts off the command and leaves the message
+        else message.channel.send(t.substring(t.indexOf(' ')))
         }
     }
 
     module.exports.help = {
-        name: "talk"
+        name: "talk",
+        aliases: ['t']
     }
