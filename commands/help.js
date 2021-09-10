@@ -1,10 +1,13 @@
 
+    const Discord = require('discord.js');
     module.exports.run = async (client, message, args) => {
         
-        var data = require('fs').readFileSync(`./archives/help.txt`).toString()
+        // extracts text from help.txt
+        var data = require('fs').readFileSync(`./files/help.txt`).toString()
             message.channel.send(data)
     }
 
     module.exports.help = {
-        name: "help"
+        name: "help",
+        aliases: ['h']
     }
