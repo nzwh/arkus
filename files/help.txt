@@ -1,6 +1,0 @@
-
-    > ` =avatar: displays your avatar, or the avatar of a person. `
-    > ` =help: opens the commands catalog of the bot. `
-    > ` =invite: sends the invite of the bot. `
-    > ` =ping: shows you the current ping of the bot. `
-    > ` =talk: says what you want the bot to say. `
