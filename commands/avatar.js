@@ -8,10 +8,10 @@
 
             // creates a new discord embed
             const avEmbed = new Discord.MessageEmbed()
-                .setTitle("Avatar:")
-                .setImage(user.avatarURL())
-                .setFooter(`Requested by ${message.author.username}.`, user.avatarURL())
-                .setColor("#8398ff")
+                .setTitle("Requested Avatar:")
+                .setImage(user.avatarURL({ format: 'png', size: 1024 }))
+                .setFooter(`Requested by ${message.author.username}.`, message.author.avatarURL())
+                .setColor(message.guild.me.displayHexColor)
 
             // sends the message to the channel
             message.channel.send(avEmbed)

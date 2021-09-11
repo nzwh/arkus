@@ -1,13 +1,14 @@
 const { Client, Collection, Intents } = require('discord.js');
-const { token, prefix } = require('./config.json');
+//const { token } = require('./config.json');
+
+const prefix = "=";
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 console.log('');
 
 client.on('ready', ()=>{
-
-        console.log('  ❱❱ Online.');
-    
+  
+    console.log('  ❱❱ Online.');
     client.user.setActivity("with the clouds", {
         type: "STREAMING",
         url: "https://www.twitch.tv/monstercat"
@@ -48,4 +49,4 @@ client.on('message', async message=>{
     
 })
 
-client.login(token);
+client.login(process.env.TOKEN);

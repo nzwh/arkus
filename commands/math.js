@@ -134,5 +134,6 @@
     }
 
     module.exports.help = {
-        name: "math"
+        name: "math",
+        aliases: ['m']
     }
