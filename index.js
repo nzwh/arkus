@@ -7,7 +7,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 console.log('');
 
 client.on('ready', ()=>{
-
+  
     console.log('  ❱❱ Online.');
     client.user.setActivity("with the clouds", {
         type: "STREAMING",

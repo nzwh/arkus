@@ -4,6 +4,7 @@
         
         // checks if the user is permitted to use the command
         if (message.member.roles.cache.some(role => role.name === 'Tester'))  {
+
         if (message.deletable) message.delete()
         var t = message.content;
 

@@ -1,6 +1,5 @@
 
     module.exports.run = async (client, message, args) => {
-
         var n = Math.floor(Math.random()*1000);
         switch(n%=10){
             case 1: message.channel.send("/j"); break;
