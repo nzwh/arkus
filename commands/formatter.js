@@ -1,6 +1,6 @@
     
     const Discord = require('discord.js');
-    const { load } = require('../files/color.json')
+    const { load, sample_fm } = require('../files/color.json')
 
     function isInclude(d_msg) {
         if (d_msg == "na") return false;
@@ -20,11 +20,12 @@
         // sends an embed about the formatter and deletes after 30000ms (30s)
         const st_embed = new Discord.MessageEmbed()
             .setAuthor("❱❱  Formatter 1.0", client.user.displayAvatarURL())
-            .setDescription("**Welcome to the Formatter 1.0.** This will create a new formatted embed of your choice. The formatter will continue to listen for input until all fields have been answered. If you would like to disregard a certain field, type 'na'. This formatter will end after **three minutes**..")
+            .setDescription("**Welcome to the Formatter 1.0.** This will create a new formatted embed of your choice. The formatter will continue to listen for input until all fields have been answered. \n\n If you would like to disregard a certain field, type 'na'. If you would like to end the formatter, type 'stop' \n\n This formatter will end after **five minutes**..")
 
             .setFooter("Arkus Formatting", load)
                 .setThumbnail(message.guild.iconURL())
                 .setTimestamp()
+                .setImage(sample_fm)
             .setColor(message.guild.me.displayHexColor)
 
         // wait until the entire process is finished to delete the embed
@@ -38,10 +39,18 @@
             message.channel.send(in_embed).then(in_msg => {
 
                     // collects all the messages sent and modifies them for the role section
-                    const collector = new Discord.MessageCollector(message.channel, filter, { max:11, time: 180*1000 });
+                    const collector = new Discord.MessageCollector(message.channel, filter, { max:11, time: 300*1000 });
                     collector.on('collect', m => {
 
                         if(m.deletable) m.delete();
+                        if (m.content == "stop") {
+                            in_msg.delete();
+                            st_msg.delete();
+
+                            message.channel.send("Action cancelled.").then(r => r.delete({ timeout: 3*1000}));
+                            collector.stop();
+                        }
+
                         type += m.content + "\n";
                         ctr++;
                         
@@ -59,20 +68,19 @@
                     // once the collector finished collecting messages
                     collector.on('end', collected => {
 
+                        if(collected.first().content == "stop") return;
+
                         // creates a new embed, and then splits type into an array
                         const fn_embed = new Discord.MessageEmbed();
                         type_arr = type.split("\n");
 
-                        // title
-                        if (type_arr[in_arr.indexOf("Title")] != "na") {
+                        // title filter
+                        if (type_arr[in_arr.indexOf("Title")] != "na")
+                            fn_embed.setTitle(type_arr[in_arr.indexOf("Title")]);
 
-                            // title url
-                            if (type_arr[in_arr.indexOf("Title URL")] != "na") 
-                                var type_title_url = type_arr[in_arr.indexOf("Title URL")];
-                            // title push
-                            if (type_title_url == undefined) fn_embed.setTitle(type_arr[in_arr.indexOf("Title")]);
-                            else fn_embed.setTitle(type_arr[in_arr.indexOf("Title")], type_title_url);
-                        }
+                        // url filter
+                        if (type_arr[in_arr.indexOf("Title URL")] != "na")
+                            fn_embed.setURL(type_arr[in_arr.indexOf("Title URL")]);
 
                         // author filter
                         if (type_arr[in_arr.indexOf("Author")] != "na") {
@@ -114,7 +122,7 @@
                         }
 
                         // timestamp filter
-                        if (type_arr[in_arr.indexOf("Timestamp")] == "yes") 
+                        if (type_arr[in_arr.indexOf("Timestamp")] != "na") 
                             fn_embed.setTimestamp();
 
 
