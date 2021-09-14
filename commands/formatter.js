@@ -2,11 +2,6 @@
     const Discord = require('discord.js');
     const { load, sample_fm } = require('../files/formats.json')
 
-    function isInclude(d_msg) {
-        if (d_msg == "na") return false;
-        else true;
-    }
-
     module.exports.run = async (client, message, args) => {
         
         // checks if the user has the Tester role
@@ -31,8 +26,10 @@
         // wait until the entire process is finished to delete the embed
         message.channel.send(st_embed).then(st_msg => {
 
+            // puts all the parameters for input inside an array
             var in_arr = ["Title", "Title URL", "Author", "Author Icon", "Description", "Color", "Thumbnail", "Image", "Footer", "Footer Icon", "Timestamp"]
 
+            // input embed that will edit itself once given an input
             const in_embed = new Discord.MessageEmbed()
                 .setDescription(`\`\`\`📢   Enter your desired ${in_arr[ctr]}. [Type 'na' to disregard.]\`\`\``)
                 .setColor(message.guild.me.displayHexColor)
@@ -42,33 +39,37 @@
                     const collector = new Discord.MessageCollector(message.channel, filter, { max:11, time: 300*1000 });
                     collector.on('collect', m => {
 
+                        // if the message is "stop", it will end the entire formatter and delete everything
                         if(m.deletable) m.delete();
                         if (m.content == "stop") {
                             in_msg.delete();
                             st_msg.delete();
 
+                            // notification message
                             message.channel.send("Action cancelled.").then(r => r.delete({ timeout: 3*1000}));
                             collector.stop();
                         }
 
+                        // adds the input to a variable
                         type += m.content + "\n";
                         ctr++;
                         
+                        // edits the embed message once an input has been detected.
                         const in_embed_edit = new Discord.MessageEmbed()
                             .setColor(message.guild.me.displayHexColor)
 
-                        if(ctr < 11)
-                            in_embed_edit.setDescription(`\`\`\`📢   Enter your desired ${in_arr[ctr]}. [Type 'na' to disregard.]\`\`\``)
-                        else 
-                            in_embed_edit.setDescription(`\`\`\`📢   Inputs Complete.\`\`\``)
-                        
+                        if(ctr < 11) in_embed_edit.setDescription(`\`\`\`📢   Enter your desired ${in_arr[ctr]}. [Type 'na' to disregard.]\`\`\``)
+                        else in_embed_edit.setDescription(`\`\`\`📢   Inputs Complete.\`\`\``)
+
+                        // edits the embed
                         in_msg.edit(in_embed_edit);
                     });
 
                     // once the collector finished collecting messages
                     collector.on('end', collected => {
 
-                        if(collected.first().content == "stop") return;
+                        // if the user inputs stop
+                        if(collected.last().content == "stop") return;
 
                         // creates a new embed, and then splits type into an array
                         const fn_embed = new Discord.MessageEmbed();
@@ -125,14 +126,12 @@
                         if (type_arr[in_arr.indexOf("Timestamp")] != "na") 
                             fn_embed.setTimestamp();
 
-
                         // sends the embed, and then deletes starting embed and input embed
                         message.channel.send(fn_embed);
                         st_msg.delete();
                         in_msg.delete();
                         
                     });
-                
             });
         });
     }
