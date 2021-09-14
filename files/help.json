@@ -1,9 +1,11 @@
 {
-    "avatar": "> `avatar:` Displays the avatar of a person, or your own. \n > ✦ Aliases: `av`",
-    "flip": "> `flip:` Has a chance of returning either a /j or a /srs. \n > ✦ Aliases: `f`",
-    "help": "> `help:` Opens the commands catalog of the bot with aliases. \n > ✦ Aliases: `h`",
+    "avatar": "> `avatar:` Posts the avatar of someone, or your own. \n > ✦ Aliases: `av`",
+    "formatter": "> `formatter:` Creates a customizable embed. \n > ✦ Aliases: `fm`",
+    "help": "> `help:` Opens the commands catalog of the bot. \n > ✦ Aliases: `h`",
     "invite": "> `invite:` Sends an invite link to invite the bot. \n > ✦ Aliases: `inv`",
-    "math": "> `math:` Does a math operation. Note: glitchy. \n > ✦ Aliases: `m`",
-    "ping": "> `ping:` Fetches your current ping with the bot server. \n > ✦ Aliases: `p`",
-    "talk": "> `talk:` Returns a message given a user input. \n > ✦ Aliases: `t`, `t /m`"
+    "math": "> `math:` Does a math operation. Note: deprecated. \n > ✦ Aliases: `m`",
+    "ping": "> `ping:` Fetches your current ping with the bot. \n > ✦ Aliases: `p`",
+    "rformat": "> `rformat:` Creates a role-menu based embed. \n > ✦ Aliases: `rfmt`",
+    "talk": "> `talk:` Returns a message given a user input. \n > ✦ Aliases: `t`, `t /m`",
+    "tone": "> `flip:` Returns one of 10 tone indicators. \n > ✦ Aliases: `tn`"
 }
