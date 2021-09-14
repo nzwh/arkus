@@ -141,3 +141,4 @@
         aliases: ['fm']
     }
 
+// ability to add user tag, user name, user avatar, server avatar, custom attachments
