@@ -1,6 +1,6 @@
     
     const Discord = require('discord.js');
-    const { load, sample_fm } = require('../files/color.json')
+    const { load, sample_fm } = require('../files/formats.json')
 
     function isInclude(d_msg) {
         if (d_msg == "na") return false;
