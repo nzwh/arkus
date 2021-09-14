@@ -1,14 +1,20 @@
  
     module.exports.run = async (client, message, args) => {
 
+        return message.channel.send("Math functions are under maintenance. Try again later.");
+
         var n = args[1];
-        if(isNaN(n) || n > 1000) {
+        if (n == undefined) {
+            message.channel.send("No inputs.")
+            return;
+        }
+        if(isNaN(n) || n > 100000) {
             message.channel.send("Invalid input.");
             return;
         }
 
         function primeGen(n) {
-            for (let i = 2; i <= n/2; i++)
+            for (let i = 2; i <= Math.sqrt(n); i++)
                if ((n%i) == 0) return false;
             return true;
         }
@@ -25,11 +31,8 @@
         function p_factorGen(n) {
             var num = n;
             var p_arr = [];
-            for (let k = 2; k <= Math.sqrt(n); k++) {
-                if(primeGen(k)) {
-                    for (; (num%k) == 0; num/=k)  
-                        p_arr.push([k]);
-                }
+            for (let k = 2; k <= n/2; k++) {
+                if(n%k==0) p_arr.push([k]);
             }
             return p_arr;
         }
@@ -64,6 +67,7 @@
             }
             return y;
         }
+
 
 
 
@@ -130,6 +134,11 @@
                 message.channel.send(`The median is **${_msg[_msg.length/2]}**.`);
                 message.channel.send(_msg);
             break;
+
+            default:
+
+                
+                break;
         }
     }
 
