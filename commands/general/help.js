@@ -3,7 +3,7 @@
     module.exports.run = async (client, message, args) => {
         
         // extracts text from help.json
-        const { avatar, formatter, help, invite, math, ping, rformat, talk, tone } = require('../files/help.json')
+        const { avatar, formatter, help, invite, math, ping, rformat, talk, tone } = require('../../files/help.json')
         const user = message.mentions.users.first() || message.author;
 
         const hpEmbed = new Discord. MessageEmbed ()  
@@ -20,5 +20,6 @@
 
     module.exports.help = {
         name: "help",
-        aliases: ['h']
+        aliases: ['h'],
+        description: "Opens the commands catalog of the bot."
     }
