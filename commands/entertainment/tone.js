@@ -9,5 +9,6 @@
 
     module.exports.help = {
         name: "tone",
-        aliases: ['tn']
+        aliases: ['tn', 'f', 'flip'],
+        description: "Returns one out of 10 tone indicators at random."
     }

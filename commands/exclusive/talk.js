@@ -23,5 +23,6 @@
 
     module.exports.help = {
         name: "talk",
-        aliases: ['t']
+        aliases: ['t', 'speak', 'say'],
+        description: "**[BT]:** Returns any message, given an input. Add `/m` to embed."
     }

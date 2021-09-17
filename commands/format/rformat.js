@@ -231,5 +231,6 @@
 
     module.exports.help = {
         name: "rformat",
-        aliases: ['rfmt']
+        aliases: ['rf', 'rfmt', 'roleformatter'],
+        description: "**[BT]:** Creates a role-menu based customizable embed."
     }

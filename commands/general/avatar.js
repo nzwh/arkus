@@ -19,5 +19,6 @@
 
     module.exports.help = {
         name: "avatar",
-        aliases: ['av']
+        aliases: ['av', 'pfp', 'img'],
+        description: "Returns the avatar of a user mentioned, or yourself."
     }

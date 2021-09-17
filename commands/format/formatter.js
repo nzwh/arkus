@@ -138,7 +138,8 @@
 
     module.exports.help = {
         name: "formatter",
-        aliases: ['fm']
+        aliases: ['fm', 'fmtr'],
+        description: "**[BT]** Creates a customizable embed of your liking."
     }
 
 // ability to add user tag, user name, user avatar, server avatar, custom attachments

@@ -1,8 +1,6 @@
  
     module.exports.run = async (client, message, args) => {
 
-        return message.channel.send("Math functions are under maintenance. Try again later.");
-
         var n = args[1];
         if (n == undefined) {
             message.channel.send("No inputs.")
@@ -120,9 +118,12 @@
 
             case "avg":
             case "average":
-                var _msg = message.content.substring(args[0].length+args[1].length+2).split(" "), sum = 0;
-                _msg.forEach(element => { sum+=parseFloat(element); });
-                message.channel.send(`> The mean is **${(sum/=_msg.length).toFixed(2)}**.`);
+                var args_arr = message.content.split(" "), avg_ans = 0;
+                for (let i = 2; i < args_arr.length; i++) 
+                    avg_ans += parseFloat(args_arr[i]);
+                
+                avg_ans /= (args_arr.length-2).toFixed(2);
+                message.channel.send(`> The mean is **${avg_ans}**.`);
             break;
 
             case "med":
@@ -144,5 +145,6 @@
 
     module.exports.help = {
         name: "math",
-        aliases: ['m']
+        aliases: ['m', 'eval'],
+        description: "Does a math operation. Note: Glitchy."
     }
