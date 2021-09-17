@@ -1,7 +1,6 @@
 const { Client, Collection, Intents } = require('discord.js');
 //const { token } = require('./config.json');
-
-const prefix = "=";
+const { prefix } = require('./preferences.json')
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS], });
 console.log('');
@@ -18,7 +17,7 @@ client.on('ready', ()=>{
     client.commands = new Collection();
     client.aliases = new Collection();
 
-    const { load_commands } = require('./utils/load_commands');
+    const { load_commands } = require('./extensions/load_commands');
     load_commands(client);
 
 client.on('message', async message=>{
