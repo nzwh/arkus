@@ -1,6 +1,6 @@
 
     const Discord = require('discord.js');
-    const { prefix } = require('../../preferences.json');
+    const { prefix } = require('../../extensions/preferences.json');
 
     module.exports.run = async (client, message, args) => {
 
