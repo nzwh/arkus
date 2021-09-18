@@ -1,6 +1,6 @@
 const { Client, Collection, Intents } = require('discord.js');
 //const { token } = require('./config.json');
-const { prefix } = require('./preferences.json')
+const { prefix } = require('./extensions/preferences.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS], });
 console.log('');
@@ -22,7 +22,7 @@ client.on('ready', ()=>{
 
 client.on('message', async message=>{
 
-    const args = message.content.substring(prefix.length).split(" ")
+    const args = message.content.substring(prefix.length).split(" ");
 
     if (message.author.bot) return;
     if (!message.guild) return;
@@ -33,5 +33,5 @@ client.on('message', async message=>{
     
 });
 
-//client.login(token)
+//client.login(token);
 client.login(process.env.TOKEN);
