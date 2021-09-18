@@ -15,19 +15,22 @@
 
         const fs = require('fs');
         const c_master = fs.readdirSync('./commands/');
-        for(let c_folder of c_master) {
+        for (let c_folder of c_master) {
 
-            const c_files = fs.readdirSync(`./commands/${c_folder}`)
-                .filter(file => file.endsWith('.js'));
+            if(!(c_folder == "math")) {
 
-            for (const file of c_files){
-                const command = require(`../../commands/${c_folder}/${file}`);
+                const c_files = fs.readdirSync(`./commands/${c_folder}`)
+                    .filter(file => file.endsWith('.js'));
 
-                var alias_arr = [];
-                command.help.aliases.forEach(alias => {
-                    alias_arr += `, \`${prefix + alias}\` `
-                });
-                hpEmbed.addField(`\`${prefix + command.help.name}\`${alias_arr}`,`>     ✦ ${command.help.description}`);
+                for (const file of c_files){
+                    const command = require(`../../commands/${c_folder}/${file}`);
+
+                    var alias_arr = [];
+                    command.help.aliases.forEach(alias => {
+                        alias_arr += `, \`${prefix + alias}\` `
+                    });
+                    hpEmbed.addField(`\`${prefix + command.help.name}\`${alias_arr}`,`>     ✦ ${command.help.description}`);
+                }
             }
         }
 
