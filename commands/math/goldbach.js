@@ -1,5 +1,5 @@
     
-    const { goldbachGen } = require('../../files/functions.js')
+    const { goldbachGen } = require('../../resources/functions.js')
     module.exports.run = async (client, message, args) => {
         
         if (args.some(isNaN)) 

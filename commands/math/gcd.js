@@ -1,5 +1,5 @@
 
-    const { gcdGen } = require('../../files/functions.js')
+    const { gcdGen } = require('../../resources/functions.js')
     module.exports.run = async (client, message, args) => {
         
         if (args.some(isNaN)) 

@@ -1,5 +1,5 @@
     
-    const { factorGen, primeGen } = require('../../files/functions.js')
+    const { factorGen, primeGen } = require('../../resources/functions.js')
     module.exports.run = async (client, message, args) => {
         
         if (args.some(isNaN)) 
