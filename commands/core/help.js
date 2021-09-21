@@ -13,26 +13,15 @@
             .setFooter(`Requested by ${message.author.username}.`, user.avatarURL())
             .setThumbnail(message.guild.iconURL())
 
-        const fs = require('fs');
-        const c_master = fs.readdirSync('./commands/');
-        for (let c_folder of c_master) {
 
-            if(!(c_folder == "math" || c_folder == "music")) {
+        client.commands.forEach(cmd => {
+            var alias_arr = "";
+            cmd.help.aliases.forEach(alias => {
+                alias_arr += `, \`${prefix + alias}\` `
+            });
 
-                const c_files = fs.readdirSync(`./commands/${c_folder}`)
-                    .filter(file => file.endsWith('.js'));
-
-                for (const file of c_files){
-                    const command = require(`../../commands/${c_folder}/${file}`);
-
-                    var alias_arr = [];
-                    command.help.aliases.forEach(alias => {
-                        alias_arr += `, \`${prefix + alias}\` `
-                    });
-                    hpEmbed.addField(`\`${prefix + command.help.name}\`${alias_arr}`,`>     ✦ ${command.help.description}`);
-                }
-            }
-        }
+            hpEmbed.addField(`\`${prefix + cmd.help.name}\`${alias_arr}`,`>     ✦ ${cmd.help.description}`);
+        }); 
 
         message.channel.send(hpEmbed);
     }

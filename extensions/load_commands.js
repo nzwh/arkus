@@ -22,6 +22,7 @@
                     // require the actual file by using a path involving c_folder and files inside c_files
                     // note: require() has to be the exact filepath (regardless) to work
                     const command = require(`../commands/${c_folder}/${file}`);
+
                     // set the command to the client, given the command name (in module.exports), and the actual file
                     client.commands.set(command.help.name, command);
 
@@ -29,6 +30,9 @@
                     command.help.aliases.forEach(alias => {
                         client.aliases.set(alias, command.help.name);
                     });
+
+                    // set the corresponding description to the command name
+                    client.description.set(command.help.description, command.help.name);
                 }
             } catch(err) {
                 console.log("  ❱❱ There was a problem in setting commands.\n\n", err);
