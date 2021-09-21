@@ -16,5 +16,7 @@
     module.exports.help = {
         name: "invite",
         aliases: ['inv', 'link'],
-        description: "**[BT]:** Provides an invite link to the bot."
+        description: "**[BT]:** Provides an invite link to the bot.",
+        category: "admin",
+        status: "active"
     }

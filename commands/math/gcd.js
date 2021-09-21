@@ -21,5 +21,7 @@
     module.exports.help = {
         name: "gcd",
         aliases: ['gcdivisor'],
-        description: "Returns the greatest common divisor between two inputs."
+        description: "Returns the greatest common divisor between two inputs.",
+        category: "math",
+        status: "active"
     }

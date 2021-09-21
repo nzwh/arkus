@@ -27,5 +27,7 @@
     module.exports.help = {
         name: "math",
         aliases: ['m', 'calc'],
-        description: "Does a math operation. Note: Limited."
+        description: "Does a math operation. Note: Limited.",
+        category: "math",
+        status: "active"
     }

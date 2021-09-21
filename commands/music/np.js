@@ -46,5 +46,8 @@
     
     module.exports.help = {
         name: "np",
-        aliases: ['nowplaying']
+        aliases: ['nowplaying'],
+        description: "Displays the current track being played.",
+        category: "music",
+        status: "active"
     }

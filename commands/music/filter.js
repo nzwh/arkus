@@ -43,5 +43,8 @@
     
     module.exports.help = {
         name: "filter",
-        aliases: ['filters']
+        aliases: ['filters'],
+        description: "Adds a sound filter on top of the track.",
+        category: "music",
+        status: "deprecated"
     }

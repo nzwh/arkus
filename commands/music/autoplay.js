@@ -33,5 +33,8 @@
     
     module.exports.help = {
         name: "autoplay",
-        aliases: ['ap']
+        aliases: ['ap'],
+        description: "Autoplays recommended tracks once the queue is completed.",
+        category: "music",
+        status: "active"
     }

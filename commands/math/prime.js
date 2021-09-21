@@ -19,5 +19,7 @@
     module.exports.help = {
         name: "prime",
         aliases: ['pr'],
-        description: "Returns if a given number is prime or not."
+        description: "Returns if a given number is prime or not.",
+        category: "math",
+        status: "active"
     }

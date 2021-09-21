@@ -23,5 +23,8 @@
 
     module.exports.help = {
         name: "play",
-        aliases: ['p']
+        aliases: ['p'],
+        description: "Plays a track, or adds it into the queue.",
+        category: "music",
+        status: "active"
     }

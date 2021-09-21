@@ -43,5 +43,8 @@
 
     module.exports.help = {
         name: "skip",
-        aliases: ['n', 'next']
+        aliases: ['s', 'n', 'next'],
+        description: "Skips the current track.",
+        category: "music",
+        status: "active"
     }

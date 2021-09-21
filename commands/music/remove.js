@@ -55,5 +55,8 @@
     
     module.exports.help = {
         name: "remove",
-        aliases: []
+        aliases: ['rmv'],
+        description: "Removes a track off the queue given their index.",
+        category: "music",
+        status: "active"
     }

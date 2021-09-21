@@ -33,7 +33,7 @@
             // formats the final embed
             const current_track = queue.songs[0];
             const status_embed = new Discord.MessageEmbed()
-                .setAuthor("Arkus.wav Now Playing: Statistics")
+                .setAuthor("Arkus.wav Now Playing: Status")
                 .setColor(message.guild.me.displayHexColor)
 
                 .addField('\u200b', status_a, true)
@@ -48,5 +48,8 @@
     
     module.exports.help = {
         name: "status",
-        aliases: []
+        aliases: ['stat'],
+        description: "Displays the status of the current track.",
+        category: "music",
+        status: "active"
     }

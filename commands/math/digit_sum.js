@@ -15,5 +15,7 @@
     module.exports.help = {
         name: "digitsum",
         aliases: ['dgs'],
-        description: "Returns the sum of all the digits of an input."
+        description: "Returns the sum of all the digits of an input.",
+        category: "math",
+        status: "active"
     }

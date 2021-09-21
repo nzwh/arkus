@@ -53,5 +53,8 @@
 
     module.exports.help = {
         name: "loop",
-        aliases: ['l']
+        aliases: ['l'],
+        description: "Loops by track, queue, or none",
+        category: "music",
+        status: "active"
     }

@@ -54,8 +54,11 @@
     }
 
     module.exports.help = {
-        name: "jumpdepr",
-        aliases: []
+        name: "jumpd",
+        aliases: [],
+        description: "Jumps to a song in a queue.",
+        category: "music",
+        status: "deprecated"
     }
 
     var moveInArray = function (arr, from, to) {

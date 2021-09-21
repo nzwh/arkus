@@ -17,5 +17,8 @@
     
     module.exports.help = {
         name: "shuffle",
-        aliases: ['sh']
+        aliases: ['shuff', 'shf'],
+        description: "Shuffles the queue.",
+        category: "music",
+        status: "active"
     }

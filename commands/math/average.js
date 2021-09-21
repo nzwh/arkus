@@ -21,5 +21,7 @@
     module.exports.help = {
         name: "average",
         aliases: ['avg', 'mean'],
-        description: "Gets the average of a set of numbers."
+        description: "Gets the average of a set of numbers.",
+        category: "math",
+        status: "active"
     }

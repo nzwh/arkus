@@ -111,5 +111,8 @@
     
     module.exports.help = {
         name: "queue",
-        aliases: ["q"]
+        aliases: ["q"],
+        description: "Displays the current queue of tracks.",
+        category: "music",
+        status: "active"
     }

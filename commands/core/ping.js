@@ -8,5 +8,7 @@
     module.exports.help = {
         name: "ping",
         aliases: ['p', 'lat', 'latency'],
-        description: "Fetches your current ping with the bot server."
+        description: "Fetches your current ping with the bot server.",
+        category: "core",
+        status: "active"
     }

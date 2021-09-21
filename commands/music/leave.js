@@ -24,5 +24,8 @@
     
     module.exports.help = {
         name: "leave",
-        aliases: ['dc', 'die']
+        aliases: ['dc', 'die'],
+        description: "Cleares the queue and leaves the voice channel.",
+        category: "music",
+        status: "active"
     }

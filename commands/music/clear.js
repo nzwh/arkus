@@ -32,5 +32,8 @@
     
     module.exports.help = {
         name: "clear",
-        aliases: []
+        aliases: ['clr'],
+        description: "Clears all the tracks in the queue.",
+        category: "music",
+        status: "active"
     }

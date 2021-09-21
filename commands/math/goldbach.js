@@ -27,5 +27,7 @@
     module.exports.help = {
         name: "goldbach",
         aliases: ['gb', 'gbcj'],
-        description: "Returns a list of two primes that when added, equal to the input."
+        description: "Returns a list of two primes that when added, equal to the input.",
+        category: "math",
+        status: "active"
     }

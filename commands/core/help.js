@@ -29,5 +29,7 @@
     module.exports.help = {
         name: "help",
         aliases: ['h', 'commands', 'cmd'],
-        description: "Displays all the commands supported by the bot."
+        description: "Displays all the commands supported by the bot.",
+        category: "core",
+        status: "active"
     }

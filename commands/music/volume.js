@@ -40,5 +40,8 @@
     
     module.exports.help = {
         name: "volume",
-        aliases: ['vol']
+        aliases: ['vol'],
+        description: "Controls the volume of the track.",
+        category: "music",
+        status: "active"
     }

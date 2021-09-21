@@ -25,5 +25,7 @@
     module.exports.help = {
         name: "pfactor",
         aliases: ['pf', 'primefactors'],
-        description: "Returns a list of prime factors of a given input."
+        description: "Returns a list of prime factors of a given input.",
+        category: "math",
+        status: "active"
     }
