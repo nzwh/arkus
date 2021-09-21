@@ -1,37 +1,41 @@
-const { Client, Collection, Intents } = require('discord.js');
-//const { token } = require('./config.json');
-const { prefix } = require('./extensions/preferences.json');
+   
+   const { Client, Collection, Intents } = require('discord.js');
+    //const { token } = require('./config.json');
+    const { prefix } = require('./extensions/preferences.json');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS], });
-console.log('');
+    const client = new Client({ intents: [Intents.FLAGS.GUILDS], });
+    console.log('');
 
-client.on('ready', ()=>{
+    client.on('ready', ()=>{
 
-    console.log('\n  ❱❱ Online.');
-    client.user.setActivity("with the clouds", {
-        type: "STREAMING",
-        url: "https://www.twitch.tv/monstercat"
-      });
-});
+        console.log('\n  ❱❱ Online.');
+        client.user.setActivity("with the clouds", {
+            type: "STREAMING",
+            url: "https://www.twitch.tv/monstercat"
+        });
+    });
 
-    client.commands = new Collection();
-    client.aliases = new Collection();
+        const distube = require("./extensions/distube.js");
+        distube.run(client);
 
-    const { load_commands } = require('./extensions/load_commands');
-    load_commands(client);
+        client.commands = new Collection();
+        client.aliases = new Collection();
 
-client.on('message', async message=>{
+        const { load_commands } = require('./extensions/load_commands');
+        load_commands(client);
 
-    const args = message.content.substring(prefix.length).split(" ");
+    client.on('message', async message=>{
 
-    if (message.author.bot) return;
-    if (!message.guild) return;
-    if (!message.content.startsWith(prefix)) return;
-    
-    let cmd = client.commands.get(args[0]) || client.commands.get(client.aliases.get(args[0]));
-    if(cmd) cmd.run(client, message, args.slice(1));
-    
-});
+        const args = message.content.substring(prefix.length).split(" ");
 
-//client.login(token);
-client.login(process.env.TOKEN);
+        if (message.author.bot) return;
+        if (!message.guild) return;
+        if (!message.content.startsWith(prefix)) return;
+        
+        let cmd = client.commands.get(args[0]) || client.commands.get(client.aliases.get(args[0]));
+        if(cmd) cmd.run(client, message, args.slice(1));
+        
+    });
+
+    //client.login(token);
+    client.login(process.env.TOKEN);

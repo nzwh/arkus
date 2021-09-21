@@ -13,7 +13,10 @@
   "author": "zal",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.2.0"
+    "@discordjs/opus": "^0.6.0",
+    "discord.js": "^12.2.0",
+    "distube": "^2.8.18",
+    "ffmpeg-static": "^4.4.0"
   },
   "bugs": {
     "url": "https://github.com/nvstco/Arkus/issues"
