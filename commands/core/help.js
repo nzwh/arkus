@@ -17,7 +17,7 @@
         const c_master = fs.readdirSync('./commands/');
         for (let c_folder of c_master) {
 
-            if(!(c_folder == "math")) {
+            if(!(c_folder == "math" || c_folder == "music")) {
 
                 const c_files = fs.readdirSync(`./commands/${c_folder}`)
                     .filter(file => file.endsWith('.js'));
