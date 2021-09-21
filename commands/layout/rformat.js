@@ -1,6 +1,6 @@
 
     const Discord = require('discord.js')
-    const { load, endmsg, author, description } = require('../../files/formats.json')
+    const { load, endmsg, author, description } = require('../../resources/formats.json')
 
     module.exports.run = async (client, message, args) => {
 

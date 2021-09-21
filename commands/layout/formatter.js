@@ -1,6 +1,6 @@
     
     const Discord = require('discord.js');
-    const { load, sample_fm } = require('../../files/formats.json')
+    const { load, sample_fm } = require('../../resources/formats.json')
 
     module.exports.run = async (client, message, args) => {
         
