@@ -10,7 +10,7 @@
     module.exports.help = {
         name: "tone",
         aliases: ['t', 'flip'],
-        description: "Returns a tone indicators at random.",
+        description: "Returns a random tone indicator.",
         category: "misc",
         status: "active"
     }

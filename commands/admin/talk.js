@@ -24,7 +24,7 @@
     module.exports.help = {
         name: "talk",
         aliases: ['t', 'speak', 'say'],
-        description: "**[BT]:** Returns any message, given an input. Add `/m` to embed.",
+        description: "Returns any message, given an input. Add `/m` to embed.",
         category: "admin",
-        status: "active"
+        status: "alpha"
     }
