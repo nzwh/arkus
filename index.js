@@ -1,5 +1,5 @@
    
-   const { Client, Collection, Intents } = require('discord.js');
+    const { Client, Collection, Intents } = require('discord.js');
     //const { token } = require('./config.json');
     const { prefix } = require('./extensions/preferences.json');
 
@@ -8,7 +8,7 @@
 
     client.on('ready', ()=>{
 
-        console.log('\n  ❱❱ Online.');
+        console.log('\n  ❱❱ Online. \n');
         client.user.setActivity("with the clouds", {
             type: "STREAMING",
             url: "https://www.twitch.tv/monstercat"

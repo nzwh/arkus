@@ -30,9 +30,6 @@
                     command.help.aliases.forEach(alias => {
                         client.aliases.set(alias, command.help.name);
                     });
-
-                    // set the corresponding description to the command name
-                    client.description.set(command.help.description, command.help.name);
                 }
             } catch(err) {
                 console.log("  ❱❱ There was a problem in setting commands.\n\n", err);
