@@ -9,7 +9,7 @@
         client.commands.forEach(cmd => {
 
             // if the filter does not match the given command
-            if(cmd.help.category !== filter && cmd.help.status === "deprecated") return;
+            if(cmd.help.category !== filter || cmd.help.status === "deprecated") return;
 
             // append the command name to a string
             cmds += `\`${prefix + cmd.help.name}\` `;
