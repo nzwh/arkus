@@ -1,27 +1,20 @@
- 
+    
+    const { evaluate } = require("mathjs");
     module.exports.run = async (client, message, args) => {
-  
-        var n_arr = [], s_arr = [], ttl = 0;
-        var operators = "+-*/%";
+        
+        try {
 
-        args.forEach(value => {
-            if(!isNaN(value)) 
-                n_arr.push(value);
-            else if(operators.includes(value)) 
-                s_arr.push(value);
-        });
+            // evaluates the expression, and sends the message.
+            message.channel.send(`\`\`\`py\n✦ Result: ${evaluate(args.join(" "))}\`\`\``);
 
-        ttl = parseFloat(n_arr[0]);
-        for (let n = 1; n < n_arr.length+1; n++) {
-            if(s_arr[0] == "+") ttl += parseFloat(n_arr[n]);
-            if(s_arr[0] == "-") ttl -= parseFloat(n_arr[n]);
-            if(s_arr[0] == "*") ttl *= parseFloat(n_arr[n]);
-            if(s_arr[0] == "/") ttl /= parseFloat(n_arr[n]);
-            if(s_arr[0] == "%") ttl %= parseFloat(n_arr[n]);
-            s_arr.shift();
+        } catch {
+
+            // catches the error
+            message.channel.send(`\`\`\`fix\n✦ Expression calculation failed. Invalid inputs.\`\`\``)
+                .then(r => r.delete({timeout: 3000}));
+                
         }
-
-        message.channel.send(`> The answer is ${ttl}.`);
+        
     }
 
     module.exports.help = {
