@@ -20,7 +20,7 @@
 
             // skip song popup
             const skip_embed = new Discord.MessageEmbed()
-                .setDescription(`✦ Skipped ${(current_track.name.length > 60) ? current_track.name.substr(0, 60-1) + '...' : current_track.name}}.`)
+                .setDescription(`✦ Skipped ${(current_track.name.length > 60) ? current_track.name.substr(0, 60-1) + '...' : current_track.name}.`)
                 .setColor(message.guild.me.displayHexColor)
                 .setFooter(`Arkus.wav  •  Skipped by ${message.author.username}   `)
                 .setTimestamp()
