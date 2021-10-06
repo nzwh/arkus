@@ -26,7 +26,7 @@
                 const apply_embed = new Discord.MessageEmbed()
                     .setDescription("✦ Filter set to `" + (filter || "Off") + '`')
                     .setColor(message.guild.me.displayHexColor)
-                    .setFooter(`Arkus.wav  •  Skipped by ${message.author.username}   `)
+                    .setFooter(`Arkus.wav  •  Applied by ${message.author.username}   `)
                     .setTimestamp()
                 message.channel.send(apply_embed);
             } 
