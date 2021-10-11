@@ -12,6 +12,7 @@
                 .setImage(user.avatarURL({ format: 'png', size: 1024 }))
                 .setFooter(`Requested by ${message.author.username}.`, message.author.avatarURL())
                 .setColor(message.guild.me.displayHexColor)
+                .setTimestamp()
 
             // sends the message to the channel
             message.channel.send(avEmbed)

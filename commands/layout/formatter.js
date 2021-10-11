@@ -138,7 +138,7 @@
 
     module.exports.help = {
         name: "formatter",
-        aliases: ['fm', 'fmtr'],
+        aliases: ['fm', 'fmt'],
         description: "Creates a customizable embed of your liking.",
         category: "layout",
         status: "alpha"

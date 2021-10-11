@@ -17,7 +17,7 @@
 
             // autoplay popup
             const auto_embed = new Discord.MessageEmbed()
-                .setDescription(`✦ Autoplay now set to **\`${(mode ? "on" : "off")}\`.`)
+                .setDescription(`✦ Autoplay now turned **\`${(mode ? "on" : "off")}\`.`)
                 .setColor(message.guild.me.displayHexColor)
             message.channel.send(auto_embed);
 

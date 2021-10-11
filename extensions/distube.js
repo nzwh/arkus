@@ -4,6 +4,8 @@
    
    module.exports.run = async (client) => {
 
+        try {
+
         client.distube = new DisTube(client, 
             { searchSongs: false, emitNewSongOnly: false });
 
@@ -106,4 +108,8 @@
                 queue.volume = 100;
                 queue.repeatMode = 0;
             });
+
+        } catch(err) {
+            console.log("  ❱❱ There was a problem in distube.js. \n\n", err)
+        }
     }

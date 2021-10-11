@@ -59,7 +59,7 @@
         // default help command
         const hpEmbed = new Discord.MessageEmbed ()  
             .setAuthor("Arkus Commands", load)
-            .setDescription(`The prefix for this server is \`=\`. Note that all commands are experimental and only few work as of the moment.`)
+            .setDescription(`The prefix for this server is \`=\`. Note that all commands are experimental and only few work smoothly as of the moment.`)
 
             .setColor(message.guild.me.displayHexColor)
             .setFooter(`Requested by ${message.author.username}.`, message.author.avatarURL())
@@ -74,7 +74,7 @@
                 { name: "\`📢\` Music", value: `${get_cmds(client, "music")}`, inline: true},
                 { name: "\`🧷\` Miscellaneous", value: `${get_cmds(client, "misc")}`, inline: true},
             )
-            .addField('\u200b', "Type =help 'command' to view the details of the command.")
+            .addField('\u200b', "Type =help \`command\` to view the details of the command.")
         message.channel.send(hpEmbed);
     }
 
