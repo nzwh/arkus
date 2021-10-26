@@ -8,6 +8,12 @@
         else if (args.length > 1) 
             message.channel.send("> Input only one numerical value.");
 
+        else if (args[0] <= 1) 
+            message.channel.send("> Must be a positive number greater than one.");
+
+        else if (args[0] % 1) 
+            message.channel.send("> Must be a whole number.");
+
         else {
             if (primeGen(args[0])) 
                 message.channel.send(`\`\`\`py\n✦ The number ${args[0]} is a prime.\`\`\``);
