@@ -1,6 +1,6 @@
 
     module.exports.run = async (client, message, args) => {
-
+        
         // if the user is not in a voice channel
         if (!message.member.voice.channel) 
             return message.channel.send('> You must be in a voice channel to use this command.').then(message => {
@@ -17,6 +17,8 @@
         else if (message.member.voice.channel && message.member.voice.channel !== message.member.guild.me.voice.channel) 
             return;
 
+        if (message.deletable) message.delete();
+        
         // passes the message and search prompt into the distube.play function
         client.distube.play(message, music);
     }

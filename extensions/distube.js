@@ -1,7 +1,7 @@
    
    const DisTube = require('distube');
    const Discord = require('discord.js');
-   
+
    module.exports.run = async (client) => {
 
         try {
@@ -13,13 +13,24 @@
             .on("playSong", async (message, queue, song) => {
                 try {
 
-                    // now playing popup
-                    const play_embed = new Discord.MessageEmbed()
-                        .setDescription(`Now playing: [${(song.name.length > 50) ? song.name.substr(0, 50-1) + '...' : song.name}](${song.url})  •  [<@${song.user.id}>]`)
-                        .setColor(message.guild.me.displayHexColor)
-                        .setFooter(`Arkus.wav  •  Queued by ${song.user.username}   `)
-                        .setTimestamp()
-                    message.channel.send(play_embed);
+                    // edit the last nowplaying message
+                    message.channel.messages.fetch({ limit: 1 }).then(messages => {
+                        let lastUser = messages.first();
+
+                        // now playing popup
+                        const play_embed = new Discord.MessageEmbed()
+                            .setDescription(`Now playing: [${(song.name.length > 50) ? song.name.substr(0, 50-1) + '...' : song.name}](${song.url})  •  [<@${song.user.id}>]`)
+                            .setColor(message.guild.me.displayHexColor)
+                            .setFooter(`Arkus.wav  •  Queued by ${song.user.username}   `)
+                            .setTimestamp()
+
+                        // last message is from the bot, contains "Now playing"
+                        if (lastUser.author.id === client.user.id && lastUser.embeds[0].description.includes("Now playing") )
+                            lastUser.edit(play_embed);
+                        else
+                            message.channel.send(play_embed);
+                    })
+
                         
                 } catch(err) {
                     console.log(err); //! Command did not go through
@@ -29,13 +40,24 @@
             .on("addSong", (message, queue, song) => {
                 try {
 
-                    // add queue popup
-                    const queue_embed = new Discord.MessageEmbed()
-                        .setDescription(`Queued [${(song.name.length > 60) ? song.name.substr(0, 60-1) + '...' : song.name}](${song.url})`)
-                        .setColor('#848cd4')
-                        .setFooter(`Arkus.wav  •  Queued by ${message.author.username}   `)
-                        .setTimestamp()
-                    message.channel.send(queue_embed);
+                    // edit the last nowplaying message
+                    message.channel.messages.fetch({ limit: 1 }).then(messages => {
+                        let lastUser = messages.first();
+
+                        // add queue popup
+                        const queue_embed = new Discord.MessageEmbed()
+                            .setDescription(`Queued [${(song.name.length > 60) ? song.name.substr(0, 60-1) + '...' : song.name}](${song.url})`)
+                            .setColor('#848cd4')
+                            .setFooter(`Arkus.wav  •  Queued by ${message.author.username}   `)
+                            .setTimestamp()
+
+                        // last message is from the bot, contains "Queued"
+                        if (lastUser.author.id === client.user.id && lastUser.embeds[0].description.includes("Queued") )
+                            lastUser.edit(queue_embed);
+                        else
+                            message.channel.send(queue_embed);
+                    })
+                    
 
                 } catch(err) {
                     console.log(err); //! Command did not go through
