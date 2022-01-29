@@ -17,7 +17,8 @@
     "discord.js": "^12.2.0",
     "distube": "^2.8.18",
     "ffmpeg-static": "^4.4.0",
-    "mathjs": "^9.4.5"
+    "mathjs": "^9.4.5",
+    "ytdl-core": "^4.10.0"
   },
   "bugs": {
     "url": "https://github.com/nvstco/Arkus/issues"
