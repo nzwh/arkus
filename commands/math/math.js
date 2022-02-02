@@ -4,7 +4,7 @@
         
         try {
             // evaluates the expression, and sends the message.
-            message.channel.send(`\`\`\`py\n✦ Result: ${evaluate(args.join(" "))}\`\`\``);
+            message.channel.send(`\`\`\`py\n✦ Result: ${evaluate(args.join(" ").replace(/```/g, ""))}\`\`\``);
 
         } catch {
             // catches the error
