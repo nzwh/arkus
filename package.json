@@ -2,7 +2,6 @@
   "name": "arkus",
   "version": "1.0.0",
   "main": " ",
-  "devDependencies": {},
   "scripts": {
     "start": "node index.js"
   },
@@ -16,6 +15,7 @@
     "@discordjs/opus": "^0.6.0",
     "discord.js": "^12.2.0",
     "distube": "^2.8.18",
+    "dotenv": "^16.0.0",
     "ffmpeg-static": "^4.4.0",
     "mathjs": "^9.4.5",
     "ytdl-core": "^4.10.0"

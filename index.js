@@ -1,7 +1,7 @@
    
     const { Client, Collection, Intents } = require('discord.js');
-    //const { token } = require('./config.json');
     const { prefix } = require('./extensions/preferences.json');
+    require('dotenv').config();
 
     const client = new Client({ intents: [Intents.FLAGS.GUILDS], });
     console.log('');
@@ -15,14 +15,14 @@
         });
     });
 
-        const distube = require("./extensions/distube.js");
-        distube.run(client);
+    const distube = require("./extensions/distube.js");
+    distube.run(client);
 
-        client.commands = new Collection();
-        client.aliases = new Collection();
+    client.commands = new Collection();
+    client.aliases = new Collection();
 
-        const { load_commands } = require('./extensions/load_commands');
-        load_commands(client);
+    const { load_commands } = require('./extensions/load_commands');
+    load_commands(client);
 
     client.on('message', async message=>{
 
@@ -37,5 +37,4 @@
         
     });
 
-    //client.login(token);
     client.login(process.env.TOKEN);
