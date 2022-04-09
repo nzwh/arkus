@@ -1,15 +1,15 @@
 {
   "name": "arkus",
   "version": "1.0.0",
-  "main": " ",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nvstco/Arkus.git"
+    "url": "git+https://github.com/nzwh/Arkus.git"
   },
-  "author": "zal",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
@@ -17,13 +17,12 @@
     "distube": "^2.8.18",
     "dotenv": "^16.0.0",
     "ffmpeg-static": "^4.4.0",
-    "mathjs": "^9.4.5",
-    "ytdl-core": "^4.10.0"
+    "mathjs": "^9.4.5"
   },
   "bugs": {
-    "url": "https://github.com/nvstco/Arkus/issues"
+    "url": "https://github.com/nzwh/Arkus/issues"
   },
-  "homepage": "https://github.com/nvstco/Arkus#readme",
+  "homepage": "https://github.com/nzwh/Arkus#readme",
   "keywords": [],
   "description": ""
 }
