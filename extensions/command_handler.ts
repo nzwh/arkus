@@ -10,10 +10,11 @@
             if (file.isDirectory()) {
                 let name = file.name.charAt(0).toUpperCase() + file.name.slice(1);
 
-                if (fs.readdirSync(`${dir}/${file.name}`).length === 0) {
+                if (fs.readdirSync(`${dir}/${file.name}`).filter(f => f.endsWith('.js') || f.endsWith('.ts')).length === 0) {
                     console.log(`  ❱❱ No commands in the ${name} folder to load.`);
                 } else {
                     console.log(`  ❱❱ Loading files from the ${name} folder...`);
+                    client.categories.push(name);
                     get_files(`${dir}/${file.name}`, suffix, client);
                 }
 

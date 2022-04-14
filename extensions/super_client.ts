@@ -4,6 +4,7 @@ class SuperClient extends Client {
 
     public commands: Collection<unknown, any>;
     public aliases: Collection<unknown, any>;
+    public categories: Array<string>;
 
     constructor(){
         super({ intents: [
@@ -13,6 +14,7 @@ class SuperClient extends Client {
         ]});
         this.commands = new Collection();
         this.aliases = new Collection();
+        this.categories = [];
     }
 
 }

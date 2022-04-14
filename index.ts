@@ -19,6 +19,7 @@
 
     client.commands = new Discord.Collection();
     client.aliases = new Discord.Collection();
+    client.categories = [];
 
     const handler = require('./extensions/command_handler');
     handler.default(client);
