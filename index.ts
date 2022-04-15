@@ -1,7 +1,7 @@
 
     import Discord from 'discord.js';
     import SuperClient from './extensions/super_client';
-    const { prefix } = require('./extensions/preferences.json');
+    import { prefix } from './databases/preferences.json';
 
     require('dotenv').config();
     console.log('\n');
@@ -21,8 +21,11 @@
     client.aliases = new Discord.Collection();
     client.categories = [];
 
-    const handler = require('./extensions/command_handler');
-    handler.default(client);
+    import DisTube from './extensions/distube_handler';
+    DisTube(client);
+
+    import Handler from './extensions/command_handler';
+    Handler(client);
 
     client.on('messageCreate', async (message) => {
 
