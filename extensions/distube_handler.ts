@@ -1,6 +1,7 @@
 
-    import Discord, { Message } from 'discord.js';
-    import DisTube, { Queue, Song, Playlist } from 'distube';
+    import Discord, { ColorResolvable, Message } from 'discord.js';
+    import DisTube, { Queue, Song, Playlist, SearchResult } from 'distube';
+    import { colors, filters } from '../databases/customs.json';
     import SuperClient from './super_client';
 
     import { YtDlpPlugin } from '@distube/yt-dlp';
@@ -15,114 +16,108 @@
                 new SpotifyPlugin({ emitEventsAfterFetching: true }),
                 new SoundCloudPlugin(),
                 new YtDlpPlugin()
-            ]
+            ],
+            updateYouTubeDL: false,
+            customFilters: filters
         })
 
         client.distube
         .on('playSong', async (queue: Queue, song: Song) => { 
 
-            console.log('playsong');
             try {
-                if (song.playlist) {
 
-                    let playlist = (song.playlist.name.length > 40) ? `${song.playlist.name.substring(0, 40-1)}...` : song.playlist.name
-                    const playlist_embed = new Discord.MessageEmbed()
-                        .setDescription(`Now playing: Playlist [${playlist}](${song.playlist.url}) [+${song.playlist.songs.length} tracks]`)
-                        .setFooter({ text: `Arkus.wav  •  Queued by ${song.user!.username}   ` })
-                        .setColor('#e4c390')
-                        .setTimestamp()
-                    queue.textChannel?.send({ embeds: [playlist_embed] });
-                } 
-
-                let default_color = queue.textChannel ? queue.textChannel?.guild!.me!.displayHexColor : '#FF0000';
                 let now_playing = (song.name!.length > 50) ? `${song.name!.substring(0, 50-1)}...` : song.name;
-
                 queue.textChannel?.messages.fetch({ limit: 1 })
                     .then(async (messages: Discord.Collection<string, Message>) => {
 
                     let last_user = messages.first()!;
-                    const play_embed = new Discord.MessageEmbed()
+                    const main = new Discord.MessageEmbed()
                         .setDescription(`Now playing: [${now_playing}](${song.url})  •  [<@${song.user?.id}>]`)
                         .setFooter({ text: `Arkus.wav  •  Queued by ${song.user!.username}   ` })
-                        .setColor(default_color)
-                        .setTimestamp()
+                        .setColor(colors.blurple as ColorResolvable)
+                        .setTimestamp();
 
                     if (last_user.author.id === client.user!.id && last_user.embeds[0].description?.includes("Now playing")) {
-                        last_user.edit({ embeds: [play_embed] });
+                        last_user.edit({ embeds: [main] });
                     } else {
-                        queue.textChannel?.send({ embeds: [play_embed] });
+                        queue.textChannel?.send({ embeds: [main] });
                     }
                 });
                 
             } catch(err) {
-                console.log("  ❱❱ There was an error at distube_handler:playSong.\n", err);
+                console.log("  ❱❱ There was an error on [Event Listener: \"playSong\"].\n", err);
             }
         })
 
         .on('addSong', async (queue: Queue, song: Song) => {
 
-            console.log("addsong");
             try {
-                let now_playing = (song.name!.length > 60) ? `${song.name!.substring(0, 60-1)}...` : song.name;
-                let default_color = queue.textChannel ? queue.textChannel?.guild!.me!.displayHexColor : '#FF0000';
 
+                let now_playing = (song.name!.length > 60) ? `${song.name!.substring(0, 60-1)}...` : song.name;
                 queue.textChannel?.messages.fetch({ limit: 1 })
                     .then(async (messages: Discord.Collection<string, Message>) => {
 
                     let last_user = messages.first()!;
-                    const queue_embed = new Discord.MessageEmbed()
+                    const main = new Discord.MessageEmbed()
                         .setDescription(`Queued [${now_playing}](${song.url})`)
                         .setFooter({ text: `Arkus.wav  •  Queued by ${song.user!.username}   ` })
-                        .setColor(default_color)
-                        .setTimestamp()
+                        .setColor(colors.blurple as ColorResolvable)
+                        .setTimestamp();
 
                     if (last_user.author.id === client.user!.id && last_user.embeds[0].description?.includes("Queued")) {
-                        last_user.edit({ embeds: [queue_embed] });
+                        last_user.edit({ embeds: [main] });
                     } else {
-                        queue.textChannel?.send({ embeds: [queue_embed] });
+                        queue.textChannel?.send({ embeds: [main] });
                     }
                 });
+
             } catch(err) {
-                console.log("  ❱❱ There was an error at distube_handler:addSong.\n", err); 
+                console.log("  ❱❱ There was an error at on [Event Listener: \"addSong\"].\n", err); 
             }
         })
 
         .on("addList", async (queue: Queue, playlist: Playlist) => {
 
             try {
+
                 let playlist_name = (playlist.name.length > 40) ? `${playlist.name.substring(0, 40-1)}...` : playlist.name
-                const playlist_embed = new Discord.MessageEmbed()
+                const main = new Discord.MessageEmbed()
                     .setDescription(`Added playlist [${playlist_name}](${playlist.url}) [+${playlist.songs.length} tracks]`)
                     .setFooter({ text: `Arkus.wav  •  Added by ${playlist.user!.username}   ` })
-                    .setColor('#e4c390')
-                    .setTimestamp()
-                queue.textChannel?.send({ embeds: [playlist_embed] });
+                    .setColor(colors.mahogany as ColorResolvable)
+                    .setTimestamp();
+                queue.textChannel?.send({ embeds: [main] });
+
             } catch(err) {
-                console.log("  ❱❱ There was an error at distube_handler:addList.\n", err);
+                console.log("  ❱❱ There was an error on [Event Listener: \"addList\"].\n", err);
             }
         })
 
         .on("noRelated", async (queue: Queue) => {
 
             try {
-                const related_embed = new Discord.MessageEmbed()
+
+                const main = new Discord.MessageEmbed()
                     .setDescription(`✦ Can't find any related music.`)
-                    .setColor('#bf3939')
-                queue.textChannel?.send({ embeds: [related_embed] });
+                    .setColor(colors.crimson as ColorResolvable);
+                queue.textChannel?.send({ embeds: [main] });
+
             } catch(err) {
-                console.log("  ❱❱ There was an error at distube_handler:noRelated.\n", err); //! Command did not go through
+                console.log("  ❱❱ There was an error [Event Listener: \"noRelated\"].\n", err);
             }
         })
 
         .on('finish', async (queue: Queue) => {
 
             try {
+
                 const finish_embed = new Discord.MessageEmbed()
                     .setDescription(`✦ No more tracks left in queue.`)
-                    .setColor('#bf3939')
+                    .setColor(colors.crimson as ColorResolvable);
                 queue.textChannel?.send({ embeds: [finish_embed] });
+
             } catch(err) {
-                console.log("  ❱❱ There was an error at distube_handler:finish.\n", err);
+                console.log("  ❱❱ There was an error at [Event Listener: \"finish\"].\n", err);
             }
         })
 
@@ -137,8 +132,25 @@
 
             const error_embed = new Discord.MessageEmbed()
                 .setDescription(`✦ An error occurred.`)
-                .setColor('#bf3939')
+                .setColor(colors.crimson as ColorResolvable);
             channel.send({ embeds: [error_embed] });
-            console.log("  ❱❱ There was an error at distube_handler.ts.\n", err);
+
+            console.log("  ❱❱ Error detected on distube_handler.ts.\n", err);
         })
+
+        // .on("searchNoResult", async (message: Message, query: string) => {
+        //     // code here
+        // })
+        // .on("searchResult", async (message: Message, result: SearchResult[], query: string,) => {
+        //     // code here
+        // })
+        // .on("searchCancel", async (message: Message, query: string) => { 
+        //     // code here
+        // })
+        // .on("searchInvalidAnswer", async (message: Message, answer: Message, query: string) => {
+        //     // code here
+        // })
+        // .on("searchDone", async (message: Message, answer: Message, query: string) => {
+        //     // code here
+        // })
     }
