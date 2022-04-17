@@ -1,6 +1,7 @@
    
-    import Discord, { Message } from 'discord.js';
+    import Discord, { ColorResolvable, Message } from 'discord.js';
     import SuperClient from '../../extensions/super_client';
+    import { colors } from '../../databases/customs.json';
 
     export default {
         run: async (client : SuperClient, message: Message, args: any[]) => {
@@ -14,12 +15,22 @@
                 let queue = client.distube.getQueue(message);
                 if (!queue) {        
 
-                    const no_embed = new Discord.MessageEmbed()
-                        .setDescription("❗ No songs in queue.")
-                        .setColor('#bf3939')
-                    return message.channel.send({ embeds: [no_embed] })
+                    const warn = new Discord.MessageEmbed()
+                        .setDescription("\`🏴\` ⟶ No tracks in queue.")
+                        .setColor(colors.crimson as ColorResolvable);
+                    return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
+
+                } else if (queue.paused) {
+
+                    const warn = new Discord.MessageEmbed()
+                        .setDescription("\`🏴\` ⟶ The queue is already paused.")
+                        .setColor(colors.crimson as ColorResolvable);
+                    return message.channel.send({ embeds: [warn] })
+                        .then(message => { setTimeout(() => { message.delete() }, 5000) });
+                    
                 } else {
+                    
                     queue.pause();
                     message.react('⏸');
                 }

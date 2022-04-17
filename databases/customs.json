@@ -22,8 +22,8 @@
 
         "muffled" : "[0]apad=pad_len=44100*2[2];[2][1]afir=length=1:irfmt=mono:dry=10:wet=10[3];[3]atrim=start_sample=44100*2",
         "phaser" : "aphaser=type=t:speed=2:decay=0.6",
-        "vocoded" : "afftfilt=real='hypot(re,im)*cos((random(0)*2-1)*2*3.14)':imag='hypot(re,im)*sin((random(1)*2-1)*2*3.14)':win_size=128:overlap=0.8",
-        "whistle" : "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=512:overlap=0.75",
+        "vocoded" : "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=512:overlap=0.75",
+        "whistle" : "afftfilt=real='hypot(re,im)*cos((random(0)*2-1)*2*3.14)':imag='hypot(re,im)*sin((random(1)*2-1)*2*3.14)':win_size=128:overlap=0.8",
         "woozy" : "vibrato=f=4"
     }
 }

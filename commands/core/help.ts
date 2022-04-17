@@ -49,7 +49,7 @@
 
                 for (const category of client.categories) {
                     hpex_embed.addField(`\`${EmojiMap[category.toLowerCase()] ? EmojiMap[category.toLowerCase()] : 
-                        '🏴'}\` ${category}`, get_cmds(client, category), true);
+                        '🏴'}\` ${category}`, get_cmds(client, category));
                 }
 
                 hpex_embed.addField('\u200b', `Type \`${prefix}help\` \`command\` to view the details of the command.`);

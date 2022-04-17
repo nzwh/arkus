@@ -21,6 +21,14 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
+                } else if (queue.playing) {
+                        
+                    const warn = new Discord.MessageEmbed()
+                        .setDescription("\`🏴\` ⟶ The queue is already playing.")
+                        .setColor(colors.crimson as ColorResolvable);
+                    return message.channel.send({ embeds: [warn] })
+                        .then(message => { setTimeout(() => { message.delete() }, 5000) });
+                    
                 } else {
 
                     queue.resume();

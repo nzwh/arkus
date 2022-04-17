@@ -7,7 +7,7 @@
 
             const user = message.mentions.users.first() || message.author;
             const av_embed = new Discord.MessageEmbed()
-                .setTitle("Requested Avatar:")
+                .setAuthor({ name: "Requested Avatar:" })
                 .setImage(user.avatarURL({ format: 'png', size: 1024 })!)
                 .setFooter({ text: `Requested by ${message.author.username}.`, iconURL: message.author.avatarURL()! })
                 .setColor(message.guild!.me!.displayHexColor)

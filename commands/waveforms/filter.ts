@@ -9,6 +9,7 @@
            
             try {
                 
+                const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
@@ -16,11 +17,15 @@
                 let queue = client.distube.getQueue(message);
                 if (!queue) {
 
-                    const warn = new Discord.MessageEmbed()
-                        .setDescription("\`🏴\` ⟶ No tracks in queue.")
-                        .setColor(colors.crimson as ColorResolvable);
-                    return message.channel.send({ embeds: [warn] })
-                        .then(message => { setTimeout(() => { message.delete() }, 5000) });
+                    const main = new Discord.MessageEmbed()
+                        .setAuthor({ name: `Filter Listing`, iconURL: medias.rotate })
+                        .setDescription(`Type \`${prefix}filter\` \`name\` toggles the filter. Type it again to turn it off. \nType  \`${prefix}filter\` \`clear\` to remove all filters. Join a voice channel to try it out.`)
+                        .addField(`\`📢\`  All Filters`, '`' + Object.keys(client.distube.filters).sort().join('`, `') + '`')
+                        .setThumbnail(message.guild!.iconURL()!)
+                        .setFooter({ text: `Arkus.wav  •  Requested by ${message.author.username}   `})
+                        .setColor(colors.blurple as ColorResolvable)
+                        .setTimestamp();
+                    return message.channel.send({ embeds: [main] });
                 }
 
                 let cur_array = queue.filters.sort();

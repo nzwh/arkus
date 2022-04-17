@@ -11,8 +11,9 @@
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
                 
+                const b_channel = message.guild?.me?.voice.channel;
                 let queue = client.distube.getQueue(message);
-                if (queue) {
+                if (!(queue && u_channel !== b_channel)) {
 
                     client.distube.stop(message);
                     message.react('👋');

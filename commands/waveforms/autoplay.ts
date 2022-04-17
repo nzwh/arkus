@@ -12,18 +12,17 @@
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                let queue = client.distube.getQueue(message);
-                if (!queue) {
+                let toggle = client.distube.toggleAutoplay(message);
+                if (toggle == undefined) {
 
                     const warn = new Discord.MessageEmbed()
-                        .setDescription("\`🏴\` ⟶ No tracks in queue.")
+                        .setDescription("\`🏴\` ⟶ An error occured.")
                         .setColor(colors.crimson as ColorResolvable);
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
                     
                 } else {
                     
-                    let toggle = client.distube.toggleAutoplay(message);
                     const main = new Discord.MessageEmbed()
                         .setDescription(`✦ Autoplay now turned \`${(toggle ? "on" : "off")}\`.`)
                         .setColor(colors.blurple as ColorResolvable);

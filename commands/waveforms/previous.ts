@@ -21,6 +21,14 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
+                } else if (queue.previousSongs.length === 0) {
+
+                    const warn = new Discord.MessageEmbed()
+                        .setDescription("\`🏴\` ⟶ There are no previous songs.")
+                        .setColor(colors.crimson as ColorResolvable);
+                    return message.channel.send({ embeds: [warn] })
+                        .then(message => { setTimeout(() => { message.delete() }, 5000) });
+
                 } else {
 
                     queue.previous();

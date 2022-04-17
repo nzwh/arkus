@@ -4,10 +4,22 @@
     import { colors } from '../../databases/customs.json';
     import { Song } from 'distube';
 
+    function FixBracket(track_name: string) {
+
+        if (track_name!.indexOf(']') < track_name!.indexOf('[')) {
+            track_name = track_name?.replace(']', ')');
+        } if (track_name!.lastIndexOf('[') > (track_name!.lastIndexOf(']') ? track_name!.lastIndexOf(']') : 0)) {
+            track_name = track_name?.substring(0, track_name?.lastIndexOf('[')) + '(' + track_name?.substring(track_name?.lastIndexOf('[') + 1);
+        }
+
+        return track_name;
+    }
+
     function GenerateEmbeds (tracks: Song[], current: Song) : Discord.MessageEmbed[] {
 
         let embeds = [];
         let max_page = Math.ceil(tracks.length / 10);
+
         for (let page_start = 0, cur_page = 1, page_limit = 10; page_start < tracks.length; page_start += 10, page_limit += 10, cur_page++) {
 
             let page = tracks.slice(page_start, page_limit), j = page_start;  
@@ -16,12 +28,31 @@
             for (const data of page) {
 
                 let track_id = ('0' + (++j).toString()).slice(-2);
-                let track_name = (data.name!.length) > 50 ? data.name!.substring(0, 49) + '...' : data.name;
-                tracklist += `\`[${track_id}] ${data.formattedDuration}\`  [${track_name}](${data.url})\n`;
+                let track_name = (data.name!.length) > 50 ? `${data.name!.substring(0, 49)}...`: data.name;
+
+                track_name = FixBracket(track_name!);
+                let temp_tracklist = `\`[${track_id}] ${data.formattedDuration}\`  [${track_name}](${data.url})\n`;
+
+                if (tracklist.length + temp_tracklist.length > 1024) {
+
+                    let left = `\`[${track_id}] ${data.formattedDuration}\`  [`
+                    let right = `...](${data.url})\n`;
+
+                    let fix_length = track_name.substring(0, 1024 - tracklist.length - left.length - right.length);
+                    tracklist += `${left}${fix_length}${right}`;
+                    break;
+
+                } else {
+                    tracklist += temp_tracklist;
+                }
             }
 
+            if (tracklist.length > 1024) tracklist = tracklist.substring(0, 1024);
+
             let current_id = ('0' + (tracks.indexOf(current) + 1).toString()).slice(-2);
-            let current_name = (current.name!.length) > 50 ? current.name!.substring(0, 49) + '...' : current.name;
+            let current_name = (current.name!.length) > 50 ? `${current.name!.substring(0, 49)}...` : current.name;
+
+            current_name = FixBracket(current_name!);
             let currents = `\`[${current_id}] ${current.formattedDuration}\`  [${current_name}](${current.url})`;
 
             const queue_embed = new Discord.MessageEmbed()
@@ -57,7 +88,7 @@
                 }
 
                 let merged_queue = [...queue.previousSongs, ...queue.songs];
-                let current_page = Math.floor((merged_queue.indexOf(queue.songs[0]) + 1) / 10);
+                let current_page = Math.floor((merged_queue.indexOf(queue.songs[0])) / 10);
                 
                 const pagination = GenerateEmbeds(merged_queue, queue.songs[0]);
                 const main = await message.channel.send({ embeds: [pagination[current_page]] });
@@ -75,7 +106,7 @@
                     return ["⬅️", "➡️"].includes(reaction.emoji.name) && message.author.id === user.id;
                 };
                 
-                const collector = main.createReactionCollector({ filter, time: 60000 });
+                const collector = main.createReactionCollector({ filter, time: 200000 });
                 collector.on("collect", async (reaction) => {
 
                     if (reaction.emoji.name === "➡️" && current_page < pagination.length - 1) {
@@ -84,7 +115,7 @@
                         main.edit({ embeds: [pagination[current_page]] });
                         reaction.users.remove(message.author.id);
 
-                    } else if (reaction.emoji.name === "⬅️" && current_page !== 0) {
+                    } else if (reaction.emoji.name === "⬅️" && current_page > 0) {
                         current_page--;
 
                         main.edit({ embeds: [pagination[current_page]] });
@@ -98,7 +129,7 @@
         },
 
         name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
-        alias: ['q', 'tracklist'],
+        alias: ['q', 'tracklist', 'tl'],
 
         usage: "Displays the current queue of tracks.",
         categ: (__dirname.split(/[\\/]/).pop()!).toUpperCase(),

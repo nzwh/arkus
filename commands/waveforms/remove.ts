@@ -26,7 +26,7 @@
                 let current_track = (merged_queue.indexOf(queue.songs[0]));
                 let track_index = args[0] - 1 ? args[0] - 1 : -1;
 
-                if (isNaN(args[0]) || args[0] > merged_queue || args[0] < 0 || track_index === current_track) {
+                if (isNaN(args[0]) || args[0] > merged_queue.length || args[0] < 0 || track_index === current_track) {
 
                     const warn = new Discord.MessageEmbed()
                         .setDescription("\`🏴\` ⟶ Invalid arguments.")
