@@ -12,8 +12,9 @@
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
+                let queue = client.distube.getQueue(message);
                 let toggle = client.distube.toggleAutoplay(message);
-                if (toggle === undefined) {
+                if (toggle === undefined || !queue) {
 
                     const warn = new Discord.MessageEmbed()
                         .setDescription("\`🏴\` ⟶ No tracks in queue.")
