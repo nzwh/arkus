@@ -24,7 +24,7 @@
                 } else if (queue.songs[0]) {
 
                     let current_track = queue.songs[0];
-                    queue.skip();
+                    queue.songs[1] || client.distube.toggleAutoplay(message) ? queue.skip() : queue.stop();
 
                     const main = new Discord.MessageEmbed()
                         .setDescription(`✦ Skipped ${(current_track.name!.length > 60) ? `${current_track.name!.substring(0, 60-1)}...` : current_track.name}.`)
