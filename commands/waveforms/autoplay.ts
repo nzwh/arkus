@@ -13,8 +13,7 @@
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
                 let queue = client.distube.getQueue(message);
-                let toggle = client.distube.toggleAutoplay(message);
-                if (toggle === undefined || !queue) {
+                if (!queue) {
 
                     const warn = new Discord.MessageEmbed()
                         .setDescription("\`🏴\` ⟶ No tracks in queue.")
@@ -24,6 +23,7 @@
                     
                 } else {
                     
+                    let toggle = client.distube.toggleAutoplay(message);
                     const main = new Discord.MessageEmbed()
                         .setDescription(`✦ Autoplay now turned \`${(toggle ? "on" : "off")}\`.`)
                         .setColor(colors.blurple as ColorResolvable);
