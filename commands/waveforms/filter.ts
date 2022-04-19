@@ -9,7 +9,6 @@
            
             try {
                 
-                const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });

@@ -13,7 +13,7 @@
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
                 let queue = client.distube.getQueue(message);
-                let timestamp = !isNaN(args[0]) ? args[0] : -1;
+
                 if (!queue) {
 
                     const warn = new Discord.MessageEmbed()
@@ -22,7 +22,10 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                } else if (queue.songs[0].duration > timestamp && timestamp > 0) {
+                }
+
+                let timestamp : number = !isNaN(args[0]) ? Number(args[0]) : -1;            
+                if (queue.songs[0].duration > timestamp && timestamp > 0) {
 
                     queue.seek(timestamp);
                     const main = new Discord.MessageEmbed()
@@ -47,9 +50,9 @@
         },
 
         name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
-        alias: ['seek', 'forward'],
+        alias: ['forward'],
 
-        usage: "Seeks forward in seconds",
+        usage: "Seeks forward in seconds.",
         categ: (__dirname.split(/[\\/]/).pop()!).toUpperCase(),
         status: 'ACTIVE',
         extend: false

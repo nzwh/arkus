@@ -21,14 +21,10 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                } else if (args[0] && ['next', 'nexts'].includes(args[0].toLowerCase())) {
-
-                    queue.songs.splice(1);
-                    message.react('👍');
-
                 } else {
                     
-                    queue.stop();
+                    queue.songs.splice(1);
+                    queue.seek(queue.songs[0].duration);
                     message.react('👍');
                 }
 
@@ -40,7 +36,7 @@
         name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
         alias: ['clr'],
 
-        usage: "Clears all the tracks in the queue. Add `nexts.` to disregard the current track.",
+        usage: "Clears all the tracks in the queue.",
         categ: (__dirname.split(/[\\/]/).pop()!).toUpperCase(),
         status: 'ACTIVE',
         extend: false
