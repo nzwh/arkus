@@ -7,17 +7,18 @@
            
             try {
                 
-                const u_channel = message.member?.voice?.channel;
-                if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
-                    .then(message => { setTimeout(() => { message.delete() }, 5000) });
-                
                 const b_channel = message.guild?.me?.voice.channel;
-                let queue = client.distube.getQueue(message);
-                if (!(queue && u_channel !== b_channel)) {
+                const u_channel = message.member?.voice?.channel;
+                
+                if (!b_channel) return message.channel.send('> I am not in a voice channel.')
+                    .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                    client.distube.stop(message);
-                    message.react('👋');
-                } 
+                if (b_channel === u_channel
+                    || b_channel.members.filter(m => !m.user.bot).size === 0) {
+                    
+                    client.distube.voices.leave(message);
+                    message.react('👍');
+                }
             
             } catch(err) {
                 console.log(`  ❱❱ There was an error at ${__filename.split(/[\\/]/).pop()!}\n`, err);
