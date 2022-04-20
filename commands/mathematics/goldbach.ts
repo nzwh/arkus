@@ -7,17 +7,25 @@
         run: async (client : SuperClient, message: Message, args: any[]) => {
 
             if (args.some(isNaN)) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a numerical value." });
+
             } else if (args.length > 1) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Input only one value." });
+
             } else if (!(args[0] > 3 && args[0] % 2 == 0)) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be greater than 3, and an even number." });
+
             } else if (args[0] > 10000) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a number below 10000." });
+
             } else {
 
                 let number: number = Number(args[0]), output: string = '';
@@ -28,9 +36,10 @@
                     if (MathFunctions.prime(i) && MathFunctions.prime(number - i)) 
                         output += `✦ ${i} & ${number - i}\n`;   
                 }
-                
+
+                let content = `\`\`\`q\n> Goldbach Conjecture of ${args[0]}: \n${output}\`\`\``;
                 message.reply({ allowedMentions: { repliedUser: false }, 
-                    content: `\`\`\`q\n> Goldbach Conjecture of ${args[0]}: \n${output}\`\`\`` });
+                    content: content.substring(0, 2000) });
             }
         },
 

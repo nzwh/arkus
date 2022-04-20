@@ -6,20 +6,25 @@
         run: async (client : SuperClient, message: Message, args: any[]) => {
 
             if (args.some(isNaN)) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a numerical value." });
+
             } else if (args.length <= 1) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> Enter two or more values." });
+                    
             } else {
 
                 let average = 0;
                 for (const num of args)
                     average += Number(num);
-                
                 average /= (args.length);
+
+                let content = `\`\`\`q\n✦ The average of [${args.join(', ')}] is ${average.toFixed(2)}.\`\`\``;
                 message.reply({ allowedMentions: { repliedUser: false }, 
-                    content: `\`\`\`q\n✦ The average of [${args.join(', ')}] is ${average.toFixed(2)}.\`\`\`` });
+                    content: content.substring(0, 2000) });
             }
         },
 

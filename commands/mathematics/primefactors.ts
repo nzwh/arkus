@@ -7,18 +7,26 @@
         run: async (client : SuperClient, message: Message, args: any[]) => {
 
             if (args.some(isNaN)) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a numerical value." });
+
             } else if (args.length > 1) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Input only one value." });
+
             } else if (args[0] > 1000 && args[0] <= 3) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a number between 3 and 1000." });
+
             } else {
+
                 let prime_factors = MathFunctions.factors(args[0]).filter(f => MathFunctions.prime(f)).join(", ");
+                let content = `\`\`\`q\n✦ Prime Factors of ${args[0]}: ${prime_factors}\`\`\``;
                 message.reply({ allowedMentions: { repliedUser: false }, 
-                    content: `\`\`\`q\n✦ Prime Factors of ${args[0]}: ${prime_factors}\`\`\`` });
+                    content: content.substring(0, 2000) });
             }
         },
 

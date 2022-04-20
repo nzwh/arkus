@@ -7,14 +7,20 @@
         run: async (client : SuperClient, message: Message, args: any[]) => {
 
             if (args.some(isNaN)) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a numerical value." });
+                    
             } else if (args.length <= 1) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must input two values." });
+
             } else {
+
+                let content = `\`\`\`q\n✦ The GCD of [${args.join(', ')}] is ${MathFunctions.gcd(args)}.\`\`\``;
                 message.reply({ allowedMentions: { repliedUser: false }, 
-                    content: `\`\`\`q\n✦ The GCD of [${args.join(', ')}] is ${MathFunctions.gcd(args)}.\`\`\`` });
+                    content: content.substring(0, 2000) });
             }
         },
 

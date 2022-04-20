@@ -7,14 +7,20 @@
         run: async (client : SuperClient, message: Message, args: any[]) => {
 
             if (args.some(isNaN)) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "**Invalid input.** Must be a numerical value." });
+
             } else if (args.length > 1) {
+
                 message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "**Invalid input.** Input only one value." });
+                    
             } else {
+
+                let content = `\`\`\`q\n✦ The sum of [${args.join(', ')}] is ${MathFunctions.digitsum(args[0])}.\`\`\``;
                 message.reply({ allowedMentions: { repliedUser: false }, 
-                    content: `\`\`\`q\n✦ The sum of the digits of ${args[0]} is ${MathFunctions.digitsum(args[0])}.\`\`\` ` });
+                    content: content.substring(0, 2000) });
             }
         },
 

@@ -10,6 +10,7 @@
             
             let slicer = args[0] === '/m' ? 2 : 1; 
             let text = message.content.split(' ').slice(slicer).join(' ');
+            text = text.substring(0, 2000);
 
             if (slicer === 2) {
                 const tk_embed = new Discord.MessageEmbed()
