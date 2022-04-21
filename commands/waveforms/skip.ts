@@ -8,7 +8,9 @@
            
             try {
 
+                const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
+
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -21,7 +23,7 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                } else if (queue.songs[0]) {
+                } else if (queue.songs[0] && u_channel === b_channel) {
 
                     let current_track = queue.songs[0];
                     queue.songs[1] || queue.autoplay ? queue.skip() : queue.seek(current_track.duration);

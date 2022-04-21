@@ -8,7 +8,9 @@
            
             try {
                 
+                const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
+
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -20,23 +22,25 @@
                         .setColor(colors.crimson as ColorResolvable);
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
-                } 
+
+                } else if (u_channel === b_channel) {
                 
-                let merged_queue = [...queue.previousSongs, ...queue.songs];
-                let current_track = merged_queue.indexOf(queue.songs[0]);
+                    let merged_queue = [...queue.previousSongs, ...queue.songs];
+                    let current_track = merged_queue.indexOf(queue.songs[0]);
 
-                if (isNaN(args[0]) || args[0] > merged_queue.length || args[0] <= 0 || args[0]-1 === current_track) {
+                    if (isNaN(args[0]) || args[0] > merged_queue.length || args[0] <= 0 || args[0]-1 === current_track) {
 
-                    const warn = new Discord.MessageEmbed()
-                        .setDescription("\`🏴\` ⟶ Invalid Page number.")
-                        .setColor(colors.crimson as ColorResolvable);
-                    return message.channel.send({ embeds: [warn] })
-                        .then(message => { setTimeout(() => { message.delete() }, 5000) });
-                        
-                } else {
+                        const warn = new Discord.MessageEmbed()
+                            .setDescription("\`🏴\` ⟶ Invalid page number.")
+                            .setColor(colors.crimson as ColorResolvable);
+                        return message.channel.send({ embeds: [warn] })
+                            .then(message => { setTimeout(() => { message.delete() }, 5000) });
+                            
+                    } else {
 
-                    queue.jump(args[0] - (current_track + 1));
-                    message.react('👍');
+                        queue.jump(args[0] - (current_track + 1));
+                        message.react('👍');
+                    }
                 }
             
             } catch(err) {

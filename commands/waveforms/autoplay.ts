@@ -10,6 +10,7 @@
 
                 const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
+                
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -22,7 +23,7 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                } else {
+                } else if (b_channel === u_channel) {
 
                     let toggle = client.distube.toggleAutoplay(message);
                     const main = new Discord.MessageEmbed()

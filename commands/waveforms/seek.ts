@@ -8,12 +8,13 @@
            
             try {
 
+                const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
+
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
                 let queue = client.distube.getQueue(message);
-
                 if (!queue) {
 
                     const warn = new Discord.MessageEmbed()
@@ -22,26 +23,27 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                }
+                } else if (u_channel === b_channel) {
 
-                let timestamp : number = !isNaN(args[0]) ? Number(args[0]) : -1;            
-                if (queue.songs[0].duration > timestamp && timestamp > 0) {
+                    let timestamp : number = !isNaN(args[0]) ? Number(args[0]) : -1;            
+                    if (queue.songs[0].duration > timestamp && timestamp > 0) {
 
-                    queue.seek(timestamp);
-                    const main = new Discord.MessageEmbed()
-                        .setDescription(`✦ Seeking to \`${timestamp}\` seconds...`)
-                        .setColor(colors.blurple as ColorResolvable)
-                        .setFooter({ text: `Arkus.wav  •  Requested by ${message.author.username}   ` })
-                        .setTimestamp();
-                    return message.channel.send({ embeds: [main] });
+                        queue.seek(timestamp);
+                        const main = new Discord.MessageEmbed()
+                            .setDescription(`✦ Seeking to \`${timestamp}\` seconds...`)
+                            .setColor(colors.blurple as ColorResolvable)
+                            .setFooter({ text: `Arkus.wav  •  Requested by ${message.author.username}   ` })
+                            .setTimestamp();
+                        return message.channel.send({ embeds: [main] });
 
-                } else {
-                        
-                    const warn = new Discord.MessageEmbed()
-                        .setDescription("\`🏴\` ⟶ Invalid arguments.")
-                        .setColor(colors.crimson as ColorResolvable);
-                    return message.channel.send({ embeds: [warn] })
-                        .then(message => { setTimeout(() => { message.delete() }, 5000) });
+                    } else {
+                            
+                        const warn = new Discord.MessageEmbed()
+                            .setDescription("\`🏴\` ⟶ Invalid arguments.")
+                            .setColor(colors.crimson as ColorResolvable);
+                        return message.channel.send({ embeds: [warn] })
+                            .then(message => { setTimeout(() => { message.delete() }, 5000) });
+                    }
                 }
             
             } catch(err) {

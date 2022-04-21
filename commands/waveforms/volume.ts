@@ -8,7 +8,9 @@
            
             try {
                 
+                const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
+
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -21,7 +23,7 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                } else if (args[0] && !isNaN(args[0]) && args[0] <= 100 && args[0] >= 0) {
+                } else if (args[0] && !isNaN(args[0]) && args[0] <= 100 && args[0] >= 0 && u_channel === b_channel) {
 
                     queue.setVolume(Number(args[0]));
                     const main = new Discord.MessageEmbed()

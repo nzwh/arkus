@@ -7,11 +7,13 @@
         run: async (client : SuperClient, message: Message, args: any[]) => {
 
             try {
+
                 const prompt = args.join(" ");
-                const b_channel = message.guild?.me?.voice.channel;
                 let queue = client.distube.getQueue(message);
 
+                const b_channel = message.guild?.me?.voice.channel;
                 const u_channel = message.member?.voice?.channel;
+
                 if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -23,7 +25,7 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                } else if (args[0]) {
+                } else if (args[0] && u_channel === b_channel) {
 
                     client.distube.play(u_channel, prompt, {
                         member: message.member,

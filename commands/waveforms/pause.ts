@@ -8,8 +8,10 @@
            
             try {
                 
-                const def_user = message.member?.voice?.channel;
-                if (!def_user) return message.channel.send('> You must be in a voice channel to use this command.')
+                const b_channel = message.guild?.me?.voice.channel;
+                const u_channel = message.member?.voice?.channel;
+
+                if (!u_channel) return message.channel.send('> You must be in a voice channel to use this command.')
                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
                 
                 let queue = client.distube.getQueue(message);
@@ -29,7 +31,7 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
                     
-                } else {
+                } else if (u_channel === b_channel) {
                     
                     queue.pause();
                     message.react('⏸');
