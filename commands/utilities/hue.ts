@@ -13,6 +13,8 @@
     export default {
         run: async (client : SuperClient, message: Message, args: any[]) => {
 
+            if (!args[0]) return message.channel.send('Please provide a color value.');
+
             let rgb: number[] = [], hex: string = '';
             let input = args[0].replace('#', '');
             let exp = /^([0-9a-f]{3}){1,2}$/i;
