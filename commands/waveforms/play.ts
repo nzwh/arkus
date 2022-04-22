@@ -25,7 +25,7 @@
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
-                } else if (args[0] && u_channel === b_channel) {
+                } else if (args[0]) {
 
                     client.distube.play(u_channel, prompt, {
                         member: message.member,
