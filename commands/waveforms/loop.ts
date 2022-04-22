@@ -32,7 +32,7 @@
 
                     const main = new Discord.MessageEmbed()
                         .setColor(colors.blurple as ColorResolvable)
-                        .setDescription(`✦ Looping \`${repeat === 0 ? `off` : repeat === 1 ? `queue` : `track`}\`.`);
+                        .setDescription(`✦ Looping \`${repeat === 0 ? `off` : repeat === 1 ? `track` : `queue`}\`.`);
                     return message.channel.send({ embeds: [main] });
                 }
             
