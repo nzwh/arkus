@@ -7,14 +7,19 @@
 
             if (args.some(isNaN)) {
 
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a numerical value." });
 
             } else if (args.length <= 1) {
 
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> Enter two or more values." });
-                    
+        
+            } else if (args.length >= 30) {
+
+                return message.reply({ allowedMentions: { repliedUser: false }, 
+                    content: "> **Reached maximum of 30 arguments.**" });
+            
             } else {
 
                 let average = 0;
@@ -23,7 +28,7 @@
                 average /= (args.length);
 
                 let content = `\`\`\`q\n✦ The average of [${args.join(', ')}] is ${average.toFixed(2)}.\`\`\``;
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: content.substring(0, 2000) });
             }
         },

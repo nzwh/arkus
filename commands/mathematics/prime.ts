@@ -8,34 +8,34 @@
 
             if (args.some(isNaN)) {
 
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> **Invalid input.** Must be a numerical value." });
                     
             } else if (args.length > 1) {
 
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> Input only one numerical value." });
 
             } else if (args[0] <= 0) {
 
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> Must be a positive number greater than one." });
 
             } else if (args[0] % 1) {
 
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: "> Must be a whole number." });
 
             } else {
 
                 if (MathFunctions.prime(args[0]) && args[0] != 1) {
 
-                    message.reply({ allowedMentions: { repliedUser: false }, 
+                    return message.reply({ allowedMentions: { repliedUser: false }, 
                         content: `\`\`\`py\n✦ The number ${args[0]} is a prime.\`\`\`` });
 
                 } else { 
                     
-                    message.reply({ allowedMentions: { repliedUser: false }, 
+                    return message.reply({ allowedMentions: { repliedUser: false }, 
                         content: `\`\`\`py\n✦ The number ${args[0]} is not a prime.\`\`\`` });
                 }
             }

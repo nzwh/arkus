@@ -9,12 +9,12 @@
             try {
 
                 let content = `\`\`\`py\n✦ Result: ${evaluate(args.join(" ").replace(/```/g, ""))}\`\`\``
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: content.substring(0, 2000) });
 
             } catch {
 
-                message.reply({ allowedMentions: { repliedUser: false }, 
+                return message.reply({ allowedMentions: { repliedUser: false }, 
                     content: `\`\`\`fix\n✦ Expression calculation failed. Invalid inputs.\`\`\`` })
                     .then(msg => { setTimeout(() => msg.delete(), 5000)});
             }
