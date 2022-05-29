@@ -3,6 +3,7 @@
     import SuperClient from '../../extensions/super_client';
     import { colors } from '../../databases/customs.json';
     import { Song } from 'distube';
+import { index } from 'mathjs';
 
     function FixBracket(track_name: string) {
 
@@ -18,9 +19,10 @@
     function GenerateEmbeds (tracks: Song[], current: Song) : Discord.MessageEmbed[] {
 
         let embeds = [];
-        let max_page = Math.ceil(tracks.length / 10);
+        let cur_index = tracks.indexOf(current) % 10;
+        let max_page = Math.ceil(tracks.length / 10) + ((cur_index == 9) ? 0 : 1);
 
-        for (let page_start = 0, cur_page = 1, page_limit = 10; page_start < tracks.length; page_start += 10, page_limit += 10, cur_page++) {
+        for (let page_start = 0, cur_page = 1, page_limit = cur_index + 1; page_start < tracks.length; page_start = page_limit, page_limit += 10, cur_page++) {
 
             let page = tracks.slice(page_start, page_limit), j = page_start;  
             let tracklist = '';
@@ -88,7 +90,7 @@
                 }
 
                 let merged_queue = [...queue.previousSongs, ...queue.songs];
-                let current_page = Math.floor((merged_queue.indexOf(queue.songs[0])) / 10);
+                let current_page = Math.floor((merged_queue.indexOf(queue.songs[0])) / 10) + 1;
                 
                 const pagination = GenerateEmbeds(merged_queue, queue.songs[0]);
                 const main = await message.channel.send({ embeds: [pagination[current_page]] });
