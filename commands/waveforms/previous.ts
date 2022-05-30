@@ -32,9 +32,44 @@
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
                 } else if (u_channel === b_channel) {
+                    
+                    let merged_queue = [...queue.previousSongs, ...queue.songs];
+                    let current_track = merged_queue.indexOf(queue.songs[0]);
 
-                    queue.previous();
-                    message.react('⏮');
+                    if (!args[0]) {
+
+                        queue.previous();
+                        message.react('⏮');
+
+                    } else if (isNaN(args[0])) {
+                        
+                        const warn = new Discord.MessageEmbed()
+                            .setDescription("\`🏴\` ⟶ You have to enter a number to go back to.")
+                            .setColor(colors.crimson as ColorResolvable);
+                        return message.channel.send({ embeds: [warn] })
+                            .then(message => { setTimeout(() => { message.delete() }, 5000) });
+
+                    } else {
+
+                        if (current_track - (Number(args[0]) - 1) <= 0 || Number(args[0]) - 1 < 0) {
+
+                            const warn = new Discord.MessageEmbed()
+                                .setDescription("\`🏴\` ⟶ You cannot jump beyond the start of the queue.")
+                                .setColor(colors.crimson as ColorResolvable);
+                            return message.channel.send({ embeds: [warn] })
+                                .then(message => { setTimeout(() => { message.delete() }, 5000) });
+
+                        } else {
+                            
+                            queue.jump((+args[0] * -1));
+                            const main = new Discord.MessageEmbed()
+                                .setDescription(`✦ Rewinded back \`${args[0]}\` tracks to Track \`${(current_track + 1) - Number(args[0])}\`.`)
+                                .setFooter({ text: `Arkus.wav  •  Rewinded by ${message.author.username}   ` })
+                                .setColor(colors.blurple as ColorResolvable)
+                                .setTimestamp();
+                            return message.channel.send({ embeds: [main] });
+                        }
+                    }
                 }
             
             } catch(err) {
@@ -43,9 +78,9 @@
         },
 
         name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
-        alias: ['prev', 'back'],
+        alias: ['prev', 'back', 'rewind'],
 
-        usage: "Plays the previous track.",
+        usage: "Rewinds to the previous track. Add a number parameter to go back that many tracks.",
         categ: (__dirname.split(/[\\/]/).pop()!).toUpperCase(),
         status: 'ACTIVE',
         extend: false

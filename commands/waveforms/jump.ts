@@ -31,7 +31,7 @@
                     if (isNaN(args[0]) || args[0] > merged_queue.length || args[0] <= 0 || args[0]-1 === current_track) {
 
                         const warn = new Discord.MessageEmbed()
-                            .setDescription("\`🏴\` ⟶ Invalid page number.")
+                            .setDescription("\`🏴\` ⟶ Invalid input.")
                             .setColor(colors.crimson as ColorResolvable);
                         return message.channel.send({ embeds: [warn] })
                             .then(message => { setTimeout(() => { message.delete() }, 5000) });
