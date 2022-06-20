@@ -29,6 +29,9 @@
 
     client.on('messageCreate', async (message) => {
 
+        if (message.author.id === '418050628665737221')
+            message.react('❔');
+
         if ((message.content.split(' '))[0] === `<@${client.user!.id}>`) 
             message.channel.send(`> Hello, my prefix is \`"${prefix}"\`.`);
         if (message.author.bot || !message.guild || !message.content.startsWith(prefix)) 
