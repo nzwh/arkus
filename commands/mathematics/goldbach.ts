@@ -28,7 +28,7 @@
 
             } else {
 
-                let number: number = Number(args[0]), output: string = '';
+                let number = Number(args[0]), output = '';
                 if (number === 4) {
                     output = "✦ 2 & 2";
                 } else {
@@ -43,7 +43,7 @@
             }
         },
 
-        name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
+        name: __filename.substring(__dirname.length + 1).split(".")[0],
         alias: ['gb', 'gbcj'],
 
         usage: "Returns a list of two primes that when added, equal to the input.",

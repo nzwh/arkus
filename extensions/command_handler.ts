@@ -2,7 +2,15 @@
     import { Client } from 'discord.js';
     import fs, { Dirent } from 'fs';
 
-    const get_files = (dir: string, suffix: string, client: any) => {
+    
+    /*  Function: GetFiles
+        Parses all files within the directory folder into a 
+        command collection in "client.commands".
+        * @param: dir : string    -> The directory path
+        * @param: suffix : string -> The filetype to look for
+        * @param: client : any    -> To store the commands 
+    */
+    const GetFiles = (dir: string, suffix: string, client: any) => {
 
         const master : Dirent[] = fs.readdirSync(dir, { withFileTypes: true });
         for (const file of master) {
@@ -10,12 +18,17 @@
             if (file.isDirectory()) {
                 let name = file.name.charAt(0).toUpperCase() + file.name.slice(1);
 
+                // Maintenance
+                let ignore = fs.readFileSync(`./databases/maintenance.txt`).toString().split(', ');
+                if (ignore.includes(name)) 
+                    continue;
+
                 if (fs.readdirSync(`${dir}/${file.name}`).filter(f => f.endsWith('.js') || f.endsWith('.ts')).length === 0) {
                     console.log(`  ❱❱ No commands in the ${name} folder to load.`);
                 } else {
                     console.log(`  ❱❱ Loading files from the ${name} folder...`);
                     client.categories.push(name);
-                    get_files(`${dir}/${file.name}`, suffix, client);
+                    GetFiles(`${dir}/${file.name}`, suffix, client);
                 }
 
             } else if (file.name.endsWith(suffix)) {
@@ -41,5 +54,5 @@
     };
 
     export default (client: Client) => {
-        get_files('commands', '.ts', client);
+        GetFiles('commands', '.ts', client);
     };

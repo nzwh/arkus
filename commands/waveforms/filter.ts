@@ -1,8 +1,10 @@
    
     import Discord, { ColorResolvable, Message } from 'discord.js';
     import SuperClient from '../../extensions/super_client';
-    import { colors, medias } from '../../databases/customs.json';
-    import { prefix } from '../../databases/preferences.json';
+    import { Colors, Medias } from '../../databases/customs.json';
+
+    require('dotenv').config();
+    const Prefix = process.env.PREFIX || '-';
 
     export default {
         run: async (client : SuperClient, message: Message, args: any[]) => {
@@ -19,12 +21,12 @@
                 if (!queue) {
 
                     const main = new Discord.MessageEmbed()
-                        .setAuthor({ name: `Filter Listing`, iconURL: medias.rotate })
-                        .setDescription(`Type \`${prefix}filter\` \`name\` toggles the filter. Type it again to turn it off. \nType  \`${prefix}filter\` \`clear\` to remove all filters. Join a voice channel to try it out.`)
+                        .setAuthor({ name: `Filter Listing`, iconURL: Medias.rotate })
+                        .setDescription(`Typing \`${Prefix}filter\` \`name\` toggles the filter. Type it again to turn it off. \nType  \`${Prefix}filter\` \`clear\` to remove all filters. Join a voice channel to try it out.`)
                         .addField(`\`📢\`  All Filters`, '`' + Object.keys(client.distube.filters).sort().join('`, `') + '`')
-                        .setThumbnail(message.guild!.iconURL()!)
+                        .setThumbnail(message.guild?.iconURL() as string)
                         .setFooter({ text: `Arkus.wav  •  Requested by ${message.author.username}   `})
-                        .setColor(colors.blurple as ColorResolvable)
+                        .setColor(Colors.blurple as ColorResolvable)
                         .setTimestamp();
                     return message.channel.send({ embeds: [main] });
 
@@ -36,16 +38,16 @@
 
                     const main = new Discord.MessageEmbed()
                         .setFooter({ text: `Arkus.wav  •  Requested by ${message.author.username}   `})
-                        .setColor(colors.blurple as ColorResolvable)
+                        .setColor(Colors.blurple as ColorResolvable)
                         .setTimestamp();
                     
                     if (!args[0] || args[0] === 'list') {
             
-                        main.setAuthor({ name: `Filter Listing`, iconURL: medias.rotate })
-                            .setDescription(`Type \`${prefix}filter\` \`name\` toggles the filter. Type it again to turn it off. \nType  \`${prefix}filter\` \`clear\` to remove all filters.`)
+                        main.setAuthor({ name: `Filter Listing`, iconURL: Medias.rotate })
+                            .setDescription(`Typing \`${Prefix}filter\` \`name\` toggles the filter. Type it again to turn it off. \nType  \`${Prefix}filter\` \`clear\` to remove all filters.`)
                             .addField(`\`📢\`  Supported Filters`, '`' + rem_array.join('`, `') + '`')
                             .addField(`\`📢\`  Applied Filters`, cur_array.length > 0 ? '`' + cur_array.join('`, `') + '`' : '`No filters applied.`')
-                            .setThumbnail(message.guild!.iconURL()!);
+                            .setThumbnail(message.guild?.iconURL() as string);
 
                     } else if (args.length > 1) {
 
@@ -53,7 +55,7 @@
                         if (args_filters.length === 0) {
 
                             main.setDescription("✦ Invalid filter.");
-                            main.setColor(colors.crimson as ColorResolvable);
+                            main.setColor(Colors.crimson as ColorResolvable);
 
                         } else {
 
@@ -90,18 +92,18 @@
                     } else {
 
                         main.setDescription("✦ Invalid filter.");
-                        main.setColor(colors.crimson as ColorResolvable);
+                        main.setColor(Colors.crimson as ColorResolvable);
                     }
 
                     message.channel.send({ embeds: [main] });
                 }
                 
             } catch(err) {
-                console.log(`  ❱❱ There was an error at ${__filename.split(/[\\/]/).pop()!}\n`, err);
+                console.log(`  ❱❱ There was an error at ${__filename.substring(__dirname.length + 1)}\n`, err);
             }
         },
 
-        name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
+        name: __filename.substring(__dirname.length + 1).split(".")[0],
         alias: ['filters', 'effects', 'ft'],
 
         usage: "Adds a sound filter on top of the track.",

@@ -1,7 +1,7 @@
    
     import Discord, { ColorResolvable, Message } from 'discord.js';
     import SuperClient from '../../extensions/super_client';
-    import { colors } from '../../databases/customs.json';
+    import { Colors } from '../../databases/customs.json';
 
     function Splitter(str: string) : number[] {
 
@@ -38,19 +38,13 @@
 
     function ToSeconds(arr: number[]): number {
 
-        if (arr[0] == -1) 
-            return -1;
-        if (arr.length > 4)
-            return -1;
+        if (arr[0] == -1 || arr.length > 4) return -1;
 
         arr.reverse();
-        let seconds = 0;
-        for (let i = 0; i < arr.length; i++) {
-            if (i == 0) seconds += arr[i];
-            if (i == 1) seconds += arr[i] * 60;
-            if (i == 2) seconds += arr[i] * 60 * 60;
-            if (i == 3) seconds += arr[i] * 60 * 60 * 24;
-        }
+        let seconds = arr[0];
+        seconds += arr[1] * 60;
+        seconds += arr[2] * 60 * 60;
+        seconds += arr[3] * 60 * 60 * 24;
 
         return seconds;
     }
@@ -88,7 +82,7 @@
 
                     const warn = new Discord.MessageEmbed()
                         .setDescription("\`🏴\` ⟶ No tracks in queue.")
-                        .setColor(colors.crimson as ColorResolvable);
+                        .setColor(Colors.crimson as ColorResolvable);
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -134,7 +128,7 @@
 
                                 const warn = new Discord.MessageEmbed()
                                     .setDescription("\`🏴\` ⟶ Invalid time format.")
-                                    .setColor(colors.crimson as ColorResolvable);
+                                    .setColor(Colors.crimson as ColorResolvable);
                                 return message.channel.send({ embeds: [warn] })
                                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -142,7 +136,7 @@
                                     
                                 const warn = new Discord.MessageEmbed()
                                     .setDescription("\`🏴\` ⟶ Time argument exceeds the track length.")
-                                    .setColor(colors.crimson as ColorResolvable);
+                                    .setColor(Colors.crimson as ColorResolvable);
                                 return message.channel.send({ embeds: [warn] })
                                     .then(message => { setTimeout(() => { message.delete() }, 5000) });
                             }
@@ -154,7 +148,7 @@
                         queue.seek(timestamp);
                         const main = new Discord.MessageEmbed()
                             .setDescription(`✦ Seeking to \`${ToLiteral(timestamp)}\`.`)
-                            .setColor(colors.blurple as ColorResolvable)
+                            .setColor(Colors.blurple as ColorResolvable)
                             .setFooter({ text: `Arkus.wav  •  Requested by ${message.author.username}   ` })
                             .setTimestamp();
                         return message.channel.send({ embeds: [main] });
@@ -163,18 +157,18 @@
                             
                         const warn = new Discord.MessageEmbed()
                             .setDescription("\`🏴\` ⟶ Invalid arguments.")
-                            .setColor(colors.crimson as ColorResolvable);
+                            .setColor(Colors.crimson as ColorResolvable);
                         return message.channel.send({ embeds: [warn] })
                             .then(message => { setTimeout(() => { message.delete() }, 5000) });
                     }
                 }
             
             } catch(err) {
-                console.log(`  ❱❱ There was an error at ${__filename.split(/[\\/]/).pop()!}\n`, err);
+                console.log(`  ❱❱ There was an error at ${__filename.substring(__dirname.length + 1)}\n`, err);
             }
         },
 
-        name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
+        name: __filename.substring(__dirname.length + 1).split(".")[0],
         alias: ['forward'],
 
         usage: "Seeks forward in seconds.",

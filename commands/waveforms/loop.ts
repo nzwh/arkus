@@ -1,7 +1,7 @@
    
     import Discord, { ColorResolvable, Message } from 'discord.js';
     import SuperClient from '../../extensions/super_client';
-    import { colors } from '../../databases/customs.json';
+    import { Colors } from '../../databases/customs.json';
 
     export default {
         run: async (client : SuperClient, message: Message, args: any[]) => {
@@ -19,7 +19,7 @@
 
                     const warn = new Discord.MessageEmbed()
                         .setDescription("\`🏴\` ⟶ No tracks in queue.")
-                        .setColor(colors.crimson as ColorResolvable);
+                        .setColor(Colors.crimson as ColorResolvable);
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -31,17 +31,17 @@
                     client.distube.setRepeatMode(message, repeat);
 
                     const main = new Discord.MessageEmbed()
-                        .setColor(colors.blurple as ColorResolvable)
+                        .setColor(Colors.blurple as ColorResolvable)
                         .setDescription(`✦ Looping \`${repeat === 0 ? `off` : repeat === 1 ? `track` : `queue`}\`.`);
                     return message.channel.send({ embeds: [main] });
                 }
             
             } catch(err) {
-                console.log(`  ❱❱ There was an error at ${__filename.split(/[\\/]/).pop()!}\n`, err);
+                console.log(`  ❱❱ There was an error at ${__filename.substring(__dirname.length + 1)}\n`, err);
             }
         },
 
-        name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
+        name: __filename.substring(__dirname.length + 1).split(".")[0],
         alias: ['repeat'],
 
         usage: "Loops by track, queue, or none.",

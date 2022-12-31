@@ -1,7 +1,7 @@
    
     import Discord, { ColorResolvable, Message } from 'discord.js';
     import SuperClient from '../../extensions/super_client';
-    import { colors } from '../../databases/customs.json';
+    import { Colors } from '../../databases/customs.json';
 
     export default {
         run: async (client : SuperClient, message: Message, args: any[]) => {
@@ -19,7 +19,7 @@
 
                     const warn = new Discord.MessageEmbed()
                         .setDescription("\`🏴\` ⟶ No tracks in queue.")
-                        .setColor(colors.crimson as ColorResolvable);
+                        .setColor(Colors.crimson as ColorResolvable);
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -27,7 +27,7 @@
 
                     const warn = new Discord.MessageEmbed()
                         .setDescription("\`🏴\` ⟶ There are no previous songs.")
-                        .setColor(colors.crimson as ColorResolvable);
+                        .setColor(Colors.crimson as ColorResolvable);
                     return message.channel.send({ embeds: [warn] })
                         .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -45,7 +45,7 @@
                         
                         const warn = new Discord.MessageEmbed()
                             .setDescription("\`🏴\` ⟶ You have to enter a number to go back to.")
-                            .setColor(colors.crimson as ColorResolvable);
+                            .setColor(Colors.crimson as ColorResolvable);
                         return message.channel.send({ embeds: [warn] })
                             .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -55,7 +55,7 @@
 
                             const warn = new Discord.MessageEmbed()
                                 .setDescription("\`🏴\` ⟶ You cannot jump beyond the start of the queue.")
-                                .setColor(colors.crimson as ColorResolvable);
+                                .setColor(Colors.crimson as ColorResolvable);
                             return message.channel.send({ embeds: [warn] })
                                 .then(message => { setTimeout(() => { message.delete() }, 5000) });
 
@@ -65,7 +65,7 @@
                             const main = new Discord.MessageEmbed()
                                 .setDescription(`✦ Rewinded back \`${args[0]}\` tracks to Track \`${(current_track + 1) - Number(args[0])}\`.`)
                                 .setFooter({ text: `Arkus.wav  •  Rewinded by ${message.author.username}   ` })
-                                .setColor(colors.blurple as ColorResolvable)
+                                .setColor(Colors.blurple as ColorResolvable)
                                 .setTimestamp();
                             return message.channel.send({ embeds: [main] });
                         }
@@ -73,11 +73,11 @@
                 }
             
             } catch(err) {
-                console.log(`  ❱❱ There was an error at ${__filename.split(/[\\/]/).pop()!}\n`, err);
+                console.log(`  ❱❱ There was an error at ${__filename.substring(__dirname.length + 1)}\n`, err);
             }
         },
 
-        name: __filename.split(/[\\/]/).pop()!.split('.').shift(),
+        name: __filename.substring(__dirname.length + 1).split(".")[0],
         alias: ['prev', 'back', 'rewind'],
 
         usage: "Rewinds to the previous track. Add a number parameter to go back that many tracks.",
