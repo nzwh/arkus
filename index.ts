@@ -1,43 +1,59 @@
+import { ActivityType, Embed, EmbedBuilder, Events } from 'discord.js';
+import SuperClient from './src/extensions/super-client.ts';
+import AsyncHandler from './src/extensions/async-handler.ts';
+import { config } from 'dotenv';
 
-    import Discord from 'discord.js';
-    import SuperClient from './extensions/super_client';
+import { LoadCommands } from './src/events/load-commands.ts';
 
-    require('dotenv').config();
-    const Prefix = process.env.PREFIX || '-';
-    console.log('\n');
+// init: dotenv, prefix configuration
+config() && console.info('\n');
+const prefix = process.env.PREFIX || '-';
 
-    const client = new SuperClient();
-    client.once('ready', () => {
+// init: client object
+const client = new SuperClient();
+    await LoadCommands(client);
 
-        console.log('\n  ❱❱ Online. \n');
-        client.user?.setPresence({ activities: [{
-            name: 'with the clouds',
-            type: 'STREAMING',
-            url: "https://www.twitch.tv/monstercat"
-        }], status: 'dnd' });
-    });
+// listener: for when the client is ready
+client.once(Events.ClientReady, () => {
+    // set the bot status and log to console
+    console.info(`\n [💫] Online in ${client.guilds.cache.size} servers.`);
+    client.user?.setPresence({ activities: [{
+        name: 'https://arkus.macro ・ -help',
+        type: ActivityType.Custom
+    }], status: 'dnd' });
+});
 
-    client.commands = new Discord.Collection();
-    client.aliases = new Discord.Collection();
-    client.categories = [];
+// listener: for all messages (with async error handling)
+client.on(Events.MessageCreate, AsyncHandler(async (message) => {
+    // ignore if the message is from a bot or not in a guild
+    if (message.author.bot || !message.guild)
+        return;
 
-    import DisTube from './extensions/distube_handler';
-    DisTube(client);
+    // parse the message content to lowercase
+    const messageContent = message.content.toLowerCase();
+    // if the bot is mentioned, reply with the prefix
+    if ((messageContent.split(' '))[0] === `<@${client.user?.id}>`) {
+        message.reply({
+            embeds: [new EmbedBuilder().setDescription(`**\`👋\` Hello! My prefix is \`${prefix}\`.**`)]
+        });
+        return;
+    }
 
-    import Handler from './extensions/command_handler';
-    Handler(client);
+    // ignore if it does not start with the prefix or is too short
+    if (!messageContent.startsWith(prefix) || messageContent.length <= 1) 
+        return;
+    
+    // parse the arguments as an array, splitting on one or more spaces
+    const args = messageContent.slice(prefix.length).trim().split(/\s+/);
+    if (!args[0]) return;
+    
+    // exec: if the command name or alias exists
+    const cmd = client.commands.get(args[0].toLowerCase()) 
+        || client.commands.get(client.aliases.get(args[0].toLowerCase()) || "");
+    if (cmd) cmd.run(client, message, args.slice(1));
+}));
 
-    client.on('messageCreate', async (message) => {
-
-        if ((message.content.split(' '))[0] === `<@${client.user?.id}>`) 
-            message.channel.send(`> Hello, my prefix is \`"${Prefix}"\`.`);
-        if (message.author.bot || !message.guild || !message.content.startsWith(Prefix)) 
-            return;
-        
-        const args = message.content.substring(Prefix.length).split(" ");
-        const cmd = client.commands.get(args[0].toLowerCase()) 
-            || client.commands.get(client.aliases.get(args[0].toLowerCase()));
-        if (cmd) cmd.default.run(client, message, args.slice(1));
-    });
-
-    client.login(process.env.TOKEN); 
+// listener: for logging in
+client.login(process.env.TOKEN).catch(() => {
+    throw new Error('\n [🚧] Failed to log in. Please check your token in the .env file.\n');
+});
