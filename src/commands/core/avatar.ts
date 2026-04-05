@@ -1,8 +1,8 @@
 import { Message, ContainerBuilder, TextDisplayBuilder, MediaGalleryBuilder, MediaGalleryItemBuilder, MessageFlags } from 'discord.js';
 import type SuperClient from '../../extensions/super-client.ts';
 
-import { GetFileInfo } from '../../extensions/types/path.types.ts';
-import type { Command } from '../../extensions/types/command.types.ts';
+import { GetFileInfo } from '../../types/path.types.ts';
+import type { Command } from '../../types/command.types.ts';
 const { name, category } = GetFileInfo(import.meta.url) as { name: string, category: string };;
 
 export default {

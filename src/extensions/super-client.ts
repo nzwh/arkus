@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, Partials, Collection } from 'discord.js';
-import type { Command } from './types/command.types.ts';
+import type { Command } from '../types/command.types.ts';
 
 //- @class: extends the Discord Client to include command handling and cooldowns
 export default class SuperClient extends Client {

@@ -1,6 +1,6 @@
 import type { Dirent } from 'fs';
 import SuperClient from '../extensions/super-client.ts';
-import type { Command } from '../extensions/types/command.types.ts';
+import type { Command } from '../types/command.types.ts';
 
 import fs from 'fs/promises';
 import path from 'path';

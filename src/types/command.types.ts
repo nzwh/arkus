@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import SuperClient from '../../extensions/super-client.ts';
+import SuperClient from '../extensions/super-client.ts';
 
 //- @type: structure for a command module
 export type Command = {
