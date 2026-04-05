@@ -5,6 +5,7 @@ import { GetFileInfo } from '../../types/path.types.ts';
 import type { Command } from '../../types/command.types.ts';
 const { name, category } = GetFileInfo(import.meta.url) as { name: string, category: string };;
 
+
 export default {
     run: async (client: SuperClient, message: Message, args: string[]) => {
 
