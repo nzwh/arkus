@@ -1,43 +1,48 @@
+import { ActivityType, Events } from 'discord.js';
+import { config } from 'dotenv';
 
-    import Discord from 'discord.js';
-    import SuperClient from './extensions/super_client';
+import SuperClient from './src/extensions/super-client.ts';
+import AsyncHandler from './src/extensions/async-handler.ts';
 
-    require('dotenv').config();
-    const Prefix = process.env.PREFIX || '-';
-    console.log('\n');
+import { LoadCommands } from './src/events/load-commands.ts';
+import { ComponentTemplate } from './src/packages/layout/component.ts';
+import { ReplyHandler } from './src/packages/layout/reply-handler.ts';
 
-    const client = new SuperClient();
-    client.once('ready', () => {
 
-        console.log('\n  ❱❱ Online. \n');
-        client.user?.setPresence({ activities: [{
-            name: 'with the clouds',
-            type: 'STREAMING',
-            url: "https://www.twitch.tv/monstercat"
-        }], status: 'dnd' });
-    });
+config() && console.info('\n');
+const prefix = process.env.PREFIX || '-';
+const client = new SuperClient();
+    await LoadCommands(client);
 
-    client.commands = new Discord.Collection();
-    client.aliases = new Discord.Collection();
-    client.categories = [];
 
-    import DisTube from './extensions/distube_handler';
-    DisTube(client);
+client.once(Events.ClientReady, () => {
+    console.info(`\n [💫] Online in ${client.guilds.cache.size} servers.`);
+    client.user?.setPresence({ activities: [{
+        name: 'https://ark.us ・ -help',
+        type: ActivityType.Custom
+    }], status: 'dnd' });
+});
 
-    import Handler from './extensions/command_handler';
-    Handler(client);
+client.on(Events.MessageCreate, AsyncHandler(async (message) => {
+    if (message.author.bot || !message.guild)
+        return;
 
-    client.on('messageCreate', async (message) => {
+    const content = message.content.toLowerCase();
+    if ((content.split(' '))[0] === `<@${client.user?.id}>`)
+        return message.reply(ReplyHandler([], [
+            ComponentTemplate(`-# **\`👋\` — hi! my prefix is \`${prefix}\`**`)
+        ])), void 0;
+    if (!content.startsWith(prefix) || content.length <= 1) 
+        return;
+    
+    const args = content.slice(prefix.length).trim().split(/\s+/);
+    if (!args[0]) return;
+    
+    const cmd = client.commands.get(args[0].toLowerCase()) 
+        || client.commands.get(client.aliases.get(args[0].toLowerCase()) || "");
+    if (cmd) cmd.run(client, message, args.slice(1));
+}));
 
-        if ((message.content.split(' '))[0] === `<@${client.user?.id}>`) 
-            message.channel.send(`> Hello, my prefix is \`"${Prefix}"\`.`);
-        if (message.author.bot || !message.guild || !message.content.startsWith(Prefix)) 
-            return;
-        
-        const args = message.content.substring(Prefix.length).split(" ");
-        const cmd = client.commands.get(args[0].toLowerCase()) 
-            || client.commands.get(client.aliases.get(args[0].toLowerCase()));
-        if (cmd) cmd.default.run(client, message, args.slice(1));
-    });
-
-    client.login(process.env.TOKEN); 
+client.login(process.env.TOKEN).catch(() => {
+    throw new Error('\n [🚧] Failed to log in. Please check your token in the .env file.\n');
+});
